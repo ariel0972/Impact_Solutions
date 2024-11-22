@@ -4,45 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impact Solutions</title>
-    <link rel="stylesheet" href="/front-end/css/index.css">
+    <link rel="stylesheet" href="/front-end/css/landing.css">
 
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <a href="/front-end/html/index.html" id="logo"><img src="/front-end/img/Impact Solutions.png"></img></a>
-        <nav>
-            <a href="/front-end/html/index.html">Home</a>
-            <a href="/front-end/html/sobre.html">Sobre a Empresa</a>
-            <a href="/front-end/html/contato.html">Contato</a>
-        </nav>
-    </header>
-    <hr>
+  <main>
+    <div class="page light">
+      <header>
+        <div class="container">
+          <div class="logo">
+            <img src="/front-end/img/Impact Solutions.png" class="logo"></img>
+          </div>
+          <div class="links">
+              <ul>
+                <li><a href="/front-end/html/index.html">Home</a></li>
+                <li><a href="/front-end/html/sobre.html">Sobre a Empresa</a></li>
+                <li><a href="/front-end/html/contato.html">Contate-se</a></li>
+                <li><a href="/front-end/html/cadastro.html" class="btn">Login</a></li>
+              </ul>
+          </div>
+        </div>
+      </header>
 
-    <!-- Conteúdo principal da Home -->
-    <main>
-        <section class="content" id="content">
-            <div class="showcase">
-                <div class="info">
-                    <h2>Impact <span>Solutions</span></h2>
-                        <p>Nosso objetivo é oferecer às ONGs uma solução prática para recrutar colaboradores, ao mesmo tempo em que orientamos esses voluntários em suas contribuições. Assim, conseguimos conectar de forma eficaz as organizações e os interessados em ajudar, promovendo um engajamento mais significativo e direcionado Eventos - ONGs anunciam seus eventos e voluntários tem a capacidade de se inscrever ao mesmo</p>
-                        <a class="info-btn" href="/front-end/html/login.html">Inscreva-se!</a>
-                </div>
-                <div class="right">
-                        <img src="/front-end/img/Partnership-pana.png" alt="" class="img_home">
-                </div>
-            </div>
-            
-            <h3>Eventos/Campanhas</h3>
-            <p>Venha se cadastrar <a href="/front-end/html/cadastro.html">casdastro</a></p>
-            <p>Explore nossas campanhas e eventos em <a href="/front-end/html/eventos_campanhas.html">Eventos e Campanhas</a>.</p>
-        </section>
-    </main>
-    <hr>
+          <section class="content">
+              <div class="showcase">
+                  <div class="info">
+                      <div class="big-title">
+                        <h1>Impact</h1>
+                        <h1>Solutions</h1>
+                      </div>
+                          <p class="text">Nosso objetivo é oferecer às ONGs uma solução prática para recrutar colaboradores, ao mesmo tempo em que orientamos esses voluntários em suas contribuições. Assim, conseguimos conectar de forma eficaz as organizações e os interessados em ajudar, promovendo um engajamento mais significativo e direcionado Eventos - ONGs anunciam seus eventos e voluntários tem a capacidade de se inscrever ao mesmo</p>
+                          <a class="btn" href="/front-end/html/login.html">Inscreva-se!</a>
+                  </div>
 
-    <!-- Rodapé -->
-    <footer>
-        <p>© 2024 Impact Solutions - Todos os direitos reservados.</p>
-    </footer>
+                  <div class="right">
+                    <img src="/front-end/img/Partnership-pana.png" alt="" class="img_home">
+                  </div>
+              </div>
+              
+              <h3>Eventos/Campanhas</h3>
+              <p>Venha se cadastrar <a href="/front-end/html/cadastro.html">casdastro</a></p>
+              <p>Explore nossas campanhas e eventos em <a href="/front-end/html/eventos_campanhas.html">Eventos e Campanhas</a>.</p>
+          </section>
+
+      <footer class="bottom">
+        <div class="container">
+          <button class="toggle-btn">
+            <i class="fa-regular fa-moon"></i>
+            <i class="fa-regular fa-sun"></i>
+          </button>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script src="https://kit.fontawesome.com/7e765c917e.js" crossorigin="anonymous"></script>
+  <script src="/front-end/JS/landing.js"></script>
 </body>
 </html>
