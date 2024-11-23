@@ -1,13 +1,25 @@
-const loginBtn = document.querySelector("#login");
-const registerBtn = document.querySelector("#register");
-const loginForm = document.querySelector(".login-form");
-const registerForm = document.querySelector(".register-form");
-loginBtn.addEventListener('click', () => {
-loginBtn.style.backgroundColor = "21264D";
-registerBtn.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-loginForm.style.left = "50%";
-registerForm.style.left =
-"-50%";
-loginForm.style.opacity = 0;
-loginForm.style.opacity = 1;
-})
+// Exibe campos específicos com base no tipo de usuário selecionado
+            document
+                .getElementById('tipo-usuario')
+                .addEventListener('change', function () {
+                    var tipo = this.value;
+                    if (tipo === 'voluntario') {
+                        document.getElementById(
+                            'dados-voluntario'
+                        ).style.display = 'block';
+                        document.getElementById('dados-ong').style.display =
+                            'none';
+                    } else if (tipo === 'ong') {
+                        document.getElementById('dados-ong').style.display =
+                            'block';
+                        document.getElementById(
+                            'dados-voluntario'
+                        ).style.display = 'none';
+                    } else {
+                        document.getElementById(
+                            'dados-voluntario'
+                        ).style.display = 'none';
+                        document.getElementById('dados-ong').style.display =
+                            'none';
+                    }
+                });
