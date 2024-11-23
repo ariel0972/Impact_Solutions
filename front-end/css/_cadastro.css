@@ -1,0 +1,109 @@
+/* POPPINS FONT */
+@import url('https://fonts.googleapis.com/css?family=Poppins: wght@400; 500; 600; 700&disp');
+
+/* ====== BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ======= Body ===== */
+body {
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* ====== Form ===== */
+.form-container {
+    display: flex;
+    width: 450px;
+    height: 600px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    backdrop-filter: blur (20px);
+    /* overflow: hidden; */
+}
+
+/* ====== Form Column ===== */
+.form-col {
+    position: relative;
+    width: 100%;
+    /* overflow: hidden; */
+}
+
+/*======== Switch Form Buttons ======*/
+.bnt-box {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.bnt {
+    font-weight: 500;
+    padding: 8px 30px;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.2);
+    background: white;
+    color: aliceblue;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: .02s;
+}
+
+.bnt-1 {
+    background: #21264d;
+}
+
+.bnt:hover {
+    opacity: 0.85;
+}
+
+/* ======== Form Box ========== */
+.form-box {
+    position: absolute;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 30px;
+    transition: .3s;
+}
+
+/* ======== login ========== */
+.login-form {
+    left: 50%;
+}
+
+/* ======== form inputs ========== */
+.form-inputs {
+    width: 100%;
+}
+
+.input-box {
+    position: relative;
+}
+
+.input {
+    width: 100%;
+    height: 55px;
+    margin: 10px 0;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.input-field
+/* ========  ========== */
