@@ -1,107 +1,114 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="ptbr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cadastro - Impact Solutions</title>
+        <link rel="stylesheet" href="/front-end/css/cadastro.css" />
+    </head>
+    <body>
+        <header>
+            <h1>Cadastro - Impact Solutions</h1>
+            <nav>
+                <a href="/front-end/html/index.html">Home</a>
+                <a href="/front-end/html/sobre.html">Sobre a Empresa</a>
+                <a href="/front-end/html/contato.html">Contato</a>
+            </nav>
+        </header>
+        <main>
+            <form action="/cadastrar" method="post">
+                <label for="nome">Nome:</label>
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    placeholder="Digite seu nome"
+                    required
+                /><br /><br />
 
-<head>
-    <title>Cadastro :: novo</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/front-end/css/cadastro.css">
+                <label for="email">Email:</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Digite seu email"
+                    required
+                /><br /><br />
 
-    <link rel="icon" type="image/x-icon" href="/front-end/img/Impact Solutions.png" />
-    <link rel="stylesheet" href="/front-end/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="/front-end/css/home.css" type="text/css" />
-    <form id="formCadastro">
-        <!-- Seus campos de cadastro aqui -->
-        <form id="formCadastro">
+                <label for="telefone">Telefone:</label>
+                <input
+                    type="tel"
+                    id="telefone"
+                    name="telefone"
+                    placeholder="Digite o telefone"
+                    required
+                /><br /><br />
 
-    </form>
-    
+                <label for="senha">Senha:</label>
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    placeholder="Digite sua senha"
+                    required
+                /><br /><br />
 
+                <label for="tipo-usuario">Tipo de Usuário:</label>
+                <select id="tipo-usuario" name="tipo_usuario" required>
+                    <option value="">Selecione o tipo</option>
+                    <option value="voluntario">Voluntário</option>
+                    <option value="ong">ONG/Arquiteto</option></select
+                ><br /><br />
 
-</head>
-
-<body>
-
-    <nav class="topnav" id="menu">
-        <a href="/front-end/html/index.html" class="active">Home</a>
-        <a href="/front-end/html/contato.html">Nosso time</a>
-        <a href="/front-end/html/documentos.html">Documentação</a>
-        <a href="javascript:void(0)" class="icon">
-            
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            
-        </a>
-    </nav>
-
-    <div class="container">
-        <div class="box">
-            <h1 style="color: black">Cadastre-se</h1>
-            <h3>Impact Solutions</h3>
-
-            <a href="/front-end/html/index.html"><img height="150" width="180" src="/front-end/img/Impact Solutions.png" /></a>
-
-            <form>
-
-                <div class="row">
-                    <div class="left">
-                        <label for="txtNome">Nome:</label>
-                        <input type="text" class="input-field" id="txtNome" />
-                    </div>
-
-                    <div class="right">
-                        <label for="txtSobrenome">Sobrenome:</label>
-                        <input type="text" class="input-field" id="txtSobrenome" />
-                    </div>
+                <!-- Campos específicos para cada tipo de usuário -->
+                <div id="dados-voluntario" style="display: none">
+                    <!-- user -->
+                    <label for="data_nascimento">Data de Nascimento:</label>
+                    <input
+                        type="date"
+                        id="data_nascimento"
+                        name="data_nascimento"
+                    /><br /><br />
+                    <label for="interesses">Interesses:</label>
+                    <textarea
+                        id="interesses"
+                        name="interesses"
+                        placeholder="Descreva seus interesses como voluntário"
+                        rows="4"
+                    ></textarea
+                    ><br /><br /> 
+                </div>
+                <!-- ong's -->
+                <div id="dados-ong" style="display: none">
+                    <label for="telefone">Site:</label>
+                    <input
+                        type="url"
+                        id="site"
+                        name="site"
+                        placeholder="url da página"
+                    /><br /><br />
+                    <label for="descricao">Descrição da ONG:</label>
+                    <textarea
+                        id="descricao"
+                        name="descricao"
+                        placeholder="Descreva sua ONG ou projeto"
+                        rows="4"
+                    ></textarea
+                    ><br /><br />
                 </div>
 
-                <div class="row">
-                    <div class="left">
-                        <label for="txtEmail">Email:</label>
-                        <input type="text" class="input-field" onchange="validarLogin" id="txtEmail" />
-                    </div>
-
-                    <div class="right">
-                        <label for="txtTelefone">Telefone:</label>
-                        <input type="text" class="input-field" id="txtTelefone" />
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="left">
-                        <label for="slcGenero">Gênero:</label>
-                        <select id="slcGenero" class="input-field">
-                            <option>Prefiro não informar</option>
-                            <option>Masculino</option>
-                            <option>Feminino</option>
-                            <option>Outros</option>
-                        </select>
-                    </div>
-
-                    <div class="right">
-                        <label for="txtSenha">Senha:</label>
-                        <input type="password" id="txtSenha" class="input-field" />
-                    </div>
-                </div>
-
-                <div class="row">
-                    <button id="btnCadastrar">Cadastrar-se</button>
-                </div>
+                <button type="submit">Cadastrar</button>
             </form>
-
-            <span id="spnErro" class="erro"></span>
-
-            <p>Já possui conta? <a href="/front-end/html/login.html">Faça login</a></p>
-
-
-        </div>
-    </div>
-    </div>
-
-    <script src="/front-end/JS/cadastro.js"></script>
-
-</body>
-
+            <p>
+                Já possui uma conta?
+                <a href="/front-end/html/login.html">Faça login aqui</a>.
+            </p>
+        </main>
+        <footer>
+            <p>© 2024 Impact Solutions</p>
+        </footer>
+        <!-- link -->
+        <script src="/front-end/JS/cadastro.js"></script>
+        <script src="/back-end/tabela_user.sql"></script>
+    </body>
 </html>

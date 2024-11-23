@@ -1,80 +1,35 @@
 ﻿<!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Login :: Acesso</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/front-end/css/login.css">
-
-    <link rel="icon" type="image/x-icon" href="/front-end/img/Impact Solutions.png" />
-    <link rel="stylesheet" href="/front-end/css/style.css" />
-    <link rel="stylesheet" href="/front-end/css/login.css" />
-    <link rel="stylesheet" href="/front-end/css/home.css" />
-    <link rel="stylesheet" href="/front-end/css/logado.home.css" />
-
-    <link rel="icon" type="image/x-icon" href="/front-end/img/Impact Solutions.png" />
-    <form id="formLogin">
-    </form>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/front-end/css/cadastro.css">
+    <title>Login</title>
 </head>
-
 <body>
-
-    <nav class="topnav" id="menu">
-        <a href="/front-end/html/index.html" class="active">Home</a>
-        <a href="/front-end/html/contato.html">Nosso time</a>
-        <a href="/front-end/html/documentos.html">Documentação</a>
-        <a href="javascript:void(0)" class="icon">
+    <header>
+        <h1>Login</h1>
+        <nav>
+            <a href="/front-end/html/index.html">Home</a>
+            <a href="/front-end/html/sobre.html">Sobre a Empresa</a>
+            <a href="/front-end/html/contato.html">Contato</a>
+        </nav>
+    </header>
+    <main>
+        <form action="/login_ong" method="post">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Digite seu email" required><br><br>
             
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required><br><br>
             
-        </a>
-    </nav>
-
-    <div class="container">
-        <div class="box">
-            <h1 style="color: black">Login</h1>
-            <h4>Impact Solutions</h4>
-
-            <a href="/front-end/html/index.html"><img height="170" width="188" src="/front-end/img/Impact Solutions.png" /></a>
-
-            <form>
-                <label for="txtEmail">E-mail:</label>
-                <input type="email" id="txtEmail" />
-
-                <br>
-
-                <label for="txtSenha">Senha:</label>
-                <input type="password" id="txtSenha" />
-
-                <br>
-
-
-                <a class="esqueceu-senha" href="/front-end/html/esqueci-senha.html">Esqueci minha senha</a>
-                <br>               
-            </form>
-
-            <button id="btnEntrar" href="/front-end/html/chamados.html">Entrar</button>
-
-            <script>
-                document.getElementById("btnEntrar").addEventListener("click", function() {
-                    window.location.href = "/front-end/html/chamados.html";  // Redireciona para chamados.html
-                });
-            </script>
-
-            
-
-        </div>
-    </div>
-
-    <script src="cadastro.js"></script>
-    <script src="login.js"></script>
-
-
-
+            <button type="submit">Entrar</button>
+        </form>
+        <p>Não possui uma conta? <a href="/front-end/html/cadastro.html">Cadastre-se aqui</a>.</p>
+    </main>
+    <footer>
+        <p>© 2024 ONG Solidária</p>
+    </footer>
 </body>
-
 </html>
+	
