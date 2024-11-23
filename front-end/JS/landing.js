@@ -13,26 +13,31 @@ declare();
 
 let dark = false;
 
-function animation(){
+function animation() {
+   
     dark = !dark;
     let clone = page.cloneNode(true);
-    if (dark){
-        clone.classList.remove("light");
-        clone.classList.add("dark");
+    if (dark) {
+      clone.classList.remove("light");
+      clone.classList.add("dark");
     } else {
-        clone.classList.remove("dark");
-        clone.classList.add("light");
+      clone.classList.remove("dark");
+      clone.classList.add("light");
     }
     clone.classList.add("copy");
     main.appendChild(clone);
-
-    clone.addEventListener("animationed", () => {
-        page.remove();
-        clone.classList.remove("copy");
-        declare();
-        events();
+  
+    document.body.classList.add("stop-scrolling");
+  
+    clone.addEventListener("animationend", () => {
+      document.body.classList.remove("stop-scrolling");
+      page.remove();
+      clone.classList.remove("copy");
+      
+      declare();
+      events();
     });
-}
+  }
 
 function events(){
     toggle_btn.addEventListener("click", animation);

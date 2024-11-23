@@ -63,7 +63,6 @@ a {
 }
 
 .container {
-    
     position: relative;
     font-weight: bold;
     max-width: 81rem;
@@ -135,7 +134,7 @@ section {
     justify-content:flex-start;
 }
 
-.content .showcase{
+.showcase .container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
