@@ -1,4 +1,13 @@
-*{
+:root {
+    --color1: #7aba51;
+    --color2: #48872a;
+    --color3: #8cbcd4;
+    --color4: #062206;
+    --color5: #84bb95;
+    --color6: #1b5f0d;
+}
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
