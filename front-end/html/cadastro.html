@@ -62,6 +62,7 @@
 
                 <!-- Campos específicos para cada tipo de usuário -->
                 <div id="dados-voluntario" style="display: none">
+                    <!-- user -->
                     <label for="data_nascimento">Data de Nascimento:</label>
                     <input
                         type="date"
@@ -75,16 +76,16 @@
                         placeholder="Descreva seus interesses como voluntário"
                         rows="4"
                     ></textarea
-                    ><br /><br />
+                    ><br /><br /> 
                 </div>
-
+                <!-- ong's -->
                 <div id="dados-ong" style="display: none">
                     <label for="telefone">Site:</label>
                     <input
                         type="url"
                         id="site"
                         name="site"
-                        placeholder="url"
+                        placeholder="url da página"
                     /><br /><br />
                     <label for="descricao">Descrição da ONG:</label>
                     <textarea
@@ -106,7 +107,8 @@
         <footer>
             <p>© 2024 Impact Solutions</p>
         </footer>
-        <!-- link_JS -->
+        <!-- link -->
         <script src="/front-end/JS/cadastro.js"></script>
+        <script src="/back-end/tabela_user.sql"></script>
     </body>
 </html>
