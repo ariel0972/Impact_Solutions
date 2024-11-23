@@ -1,0 +1,59 @@
+.box button {
+    width: 100%;
+    background-color: black;
+}
+
+label {
+    display: inline-block;
+    margin: 5px 0 0;
+}
+
+.left {
+    margin-right: 40px;
+}
+
+.row {
+    margin: 10px;
+    display: block;
+}
+
+.right {
+    margin-right: 0px;
+}
+
+.box {
+    width: 300px;
+    
+}
+
+.input-field {
+    width: 280px;
+}
+
+body {
+    background-image: url(../faculdade/img/fundo4.jpg);
+    overflow: hidden;
+}
+
+
+/*desktop*/
+@media only screen and (min-width: 768px) {
+
+    .row {
+        display: flex;
+        margin: 18px 0;
+    }
+
+    .right {
+        margin: 0;
+    }
+
+    .box {
+        width: 720px;
+    }
+
+    .input-field {
+        width: 340px;
+    }
+}
+
