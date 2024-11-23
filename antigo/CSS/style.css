@@ -398,3 +398,26 @@ header.sticky{
         right: 0;
     }
 }
+
+
+/* MISSÃO, VISÃO E VALORES */
+
+.missao__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.missao-card {
+    background: rgb(100, 93, 93);
+    max-width: 32%;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+/* -------------------------------------  */
