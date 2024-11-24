@@ -88,9 +88,8 @@ header .showcase__container {
 }
 
 .logo img{
-    width: 100px;
-    margin-right: 0.6rem;
-    margin-top: -0.6rem;
+    margin: 20px 0;
+    width: 100%;
 }
 
 .links ul{
@@ -132,6 +131,42 @@ header .showcase__container {
     align-items: center;
     justify-content: space-evenly;
     
+}
+
+@media only screen and (max-width: 1100px){
+    .showcase .showcase__container{
+        align-items: center;
+        justify-content: unset;
+        flex-direction: column-reverse;
+    }
+
+    .info{
+        margin-top: -100px;
+    }
+
+    .info .text{
+        max-width: unset;
+    }
+
+    .showcase{
+        padding-bottom: 80px !important;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .info{
+        margin-top: -60px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .info .big-title{
+        font-size: 26px;
+    }
+
+    .info{
+        margin-top: -40px;
+    }
 }
 
 .info{
