@@ -402,7 +402,7 @@ header.sticky{
 
 /* MISSÃO, VISÃO E VALORES */
 
-.missao__container {
+.missao__content {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -418,6 +418,72 @@ header.sticky{
     align-items: center;
 }
 
- 
+h2.missao__titulo {
+    display: flex;
+    justify-content: center;
+    color: #111;
+    font-size: 28px;
+    text-transform: capitalize;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.missao-card {
+    background-color: #e3e3e3;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+h3.missao-card__titulo {
+    color: #40614a;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+p.missao-card__texto {
+    font-size: 16px;
+    color: #111;
+    text-align: justify;
+}
+
+.missao-card__img>svg {
+    width: 80px;
+    fill: #84bb95;
+}
+
+.missao-card__img {
+    margin-bottom: 10px;
+}
 
 /* -------------------------------------  */
+
+
+
+
+
+
+/* TABLET  */
+
+@media only screen and (max-width: 800px){
+    .missao__content{
+        flex-direction: column;
+    }
+
+    .missao-card{
+        max-width: 70%;
+    }
+    .missao-card:not(:last-child){
+        margin-bottom: 25px;
+    }
+}
+
+/* ---------------------------  */
+
+
+/* CELULAR  */
+
+@media only screen and (max-width: 500px){
+    .missao-card{
+        max-width: 100%;
+    }
+}
