@@ -1,115 +1,103 @@
 ﻿<!DOCTYPE html>
 <html lang="ptbr">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Cadastro - Impact Solutions</title>
-        <link rel="stylesheet" href="/front-end/css/cadastro.css" />
-    </head>
-    <body>
-        <header>
-            <h1>Cadastro - Impact Solutions</h1>
-            <nav>
-                <a href="/front-end/html/index.html">Home</a>
-                <a href="/front-end/html/sobre.html">Sobre a Empresa</a>
-                <a href="/front-end/html/contato.html">Contato</a>
-            </nav>
-        </header>
-        <main>
-            <form id="formCadastro">
-                <label for="nome">Nome:</label>
-                <input
-                    type="text"
-                    id="nome"
-                    name="nome"
-                    placeholder="Digite seu nome"
-                    required
-                /><br /><br />
 
-                <label for="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Digite seu email"
-                    required
-                /><br /><br />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadastro - Impact Solutions</title>
+    <link rel="stylesheet" href="/front-end/css/cadastro.css" />
+</head>
 
-                <label for="telefone">Telefone:</label>
-                <input
-                    type="tel"
-                    id="telefone"
-                    name="telefone"
-                    placeholder="Digite o telefone"
-                    required
-                /><br /><br />
+<body>
 
-                <label for="senha">Senha:</label>
-                <input
-                    type="password"
-                    id="senha"
-                    name="senha"
-                    placeholder="Digite sua senha"
-                    required
-                /><br /><br />
-
-                <label for="tipo-usuario">Tipo de Usuário:</label>
-                <select id="tipo-usuario" name="tipo_usuario" required>
-                    <option value="">Selecione o tipo</option>
-                    <option value="voluntario">Voluntário</option>
-                    <option value="ong">ONG/Arquiteto</option></select
-                ><br /><br />
-
-                <!-- Campos específicos para cada tipo de usuário -->
-                <div id="dados-voluntario" style="display: none">
-                    <!-- user -->
-                    <label for="data_nascimento">Data de Nascimento:</label>
-                    <input
-                        type="date"
-                        id="data_nascimento"
-                        name="data_nascimento"
-                    /><br /><br />
-                    <label for="interesses">Interesses:</label>
-                    <textarea
-                        id="interesses"
-                        name="interesses"
-                        placeholder="Descreva seus interesses como voluntário"
-                        rows="4"
-                    ></textarea
-                    ><br /><br /> 
+    <main>
+        <div class="form-container">
+            <div class="form-col">
+                <div class="home-btn">
+                    <a href="/front-end/html/index.html"><i class="fa-solid fa-arrow-left icon"></i> Voltar a página inicial</a>
                 </div>
-                <!-- ong's -->
-                <div id="dados-ong" style="display: none">
-                    <label for="telefone">Site:</label>
-                    <input
-                        type="url"
-                        id="site"
-                        name="site"
-                        placeholder="url da página"
-                    /><br /><br />
-                    <label for="descricao">Descrição da ONG:</label>
-                    <textarea
-                        id="descricao"
-                        name="descricao"
-                        placeholder="Descreva sua ONG ou projeto"
-                        rows="4"
-                    ></textarea
-                    ><br /><br />
+                <div class="btn-box">
+                    <button class="btn btn-1" id="sign">Cadastrar</button>
+                    <button class="btn btn-2" id="login">Login</button>
                 </div>
+                <form id="formCadastro" class="form-box sign-form">
+                    <div class="form-title">
+                        <span>Cadastro</span>
+                    </div>
+                    <div class="form-inputs">
+                        <div class="input-box">
+                            <input type="text" id="nome" class="inputs input-field" name="nome"
+                                placeholder="Nome de usuário" required>
+                            <i class="fa-regular fa-user icon"></i>
+                            
+                        </div>
+                        <div class="input-box">
+                            <input type="email" id="email" class="inputs input-field" name="email" placeholder="Email"
+                                required>
+                            <i class="fa-solid fa-envelope icon"></i>
+                            
+                        </div>
+                        <div class="input-box">
+                            <input type="tel" id="telefone" class="inputs input-field" name="telefone"
+                                placeholder="Telefone" required>
+                            <i class="fa-solid fa-phone icon"></i>
+                            
+                        </div>
 
-                <button id="regis">Cadastrar</button>
-            </form>
-            <p>
-                Já possui uma conta?
-                <a href="/front-end/html/login.html">Faça login aqui</a>.
-            </p>
-            asdfasdf
-        </main>
-        <footer>
-            <p>© 2024 Impact Solutions</p>
-        </footer>
-        <!-- link -->
-        <script src="/front-end/JS/cadastro.js"></script>
-        <!--<script src="/back-end/D.B_user.sql"></script>-->
-    </body>
+                        <div class="input-box">
+                            <input type="password" id="senha" class="inputs input-field" name="senha"
+                                placeholder="Senha" required>
+                            <i class="fa-solid fa-lock icon"></i>
+                           
+                        </div>
+
+                        <label for="tipo-usuario">Tipo de Usuário:</label>
+                        <select id="tipo-usuario" name="tipo_usuario" required>
+                            <option value="">Selecione o tipo</option>
+                            <option value="voluntario">Voluntário</option>
+                            <option value="ong">ONG/Arquiteto</option>
+                        </select>
+                        
+
+                        <!-- Campos específicos para cada tipo de usuário -->
+                        <div id="dados-voluntario" style="display: none">
+                            <!-- user -->
+                            <label for="data_nascimento">Data de Nascimento:</label>
+                            <input type="date" id="data_nascimento" name="data_nascimento">
+                            <br>
+                            <label for="interesses">Interesses:</label>
+                            <textarea id="interesses" name="interesses"
+                                placeholder="Descreva seus interesses como voluntário" rows="4"></textarea>
+                            <br>
+                        </div>
+                        <!-- ong's -->
+                        <div id="dados-ong" style="display: none">
+                            <label for="telefone">Site:</label>
+                            <input type="url" id="site" name="site" placeholder="url da página" /><br /><br />
+                            <label for="descricao">Descrição da ONG:</label>
+                            <textarea id="descricao" name="descricao" placeholder="Descreva sua ONG ou projeto"
+                                rows="4"></textarea><br>
+                        </div>
+                        <div class="has-account">
+                            <p>Já possui uma
+                            <a href="/front-end/html/login.html">Conta?</a></p>
+                        </div>
+                        <div class="input-box">
+                            <button id="regis" class="inputs submit-btn">
+                                <span>Registrar</span>
+                                <i class="fa-solid fa-arrow-right icon"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- link -->
+    <script src="/front-end/JS/cadastro.js"></script>
+    <script src="https://kit.fontawesome.com/7e765c917e.js" crossorigin="anonymous"></script>
+    <!--<script src="/back-end/D.B_user.sql"></script>-->
+</body>
+
 </html>
