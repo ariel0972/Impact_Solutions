@@ -16,20 +16,25 @@
         </nav>
     </header>
     <main>
-        <form action="/login_ong" method="post">
-            <label for="email">Email:</label>
+        <form id="formLogin">
+            <label for="email">Email:gay</label>
             <input type="email" id="email" name="email" placeholder="Digite seu email" required><br><br>
             
             <label for="password">Senha:</label>
             <input type="password" id="password" name="password" placeholder="Digite sua senha" required><br><br>
             
-            <button type="submit">Entrar</button>
+            <button id="enter">Entrar</button>
         </form>
+        <span id="spnErro" class="erro" style="background-color: red;width: 100%;"></span>
+
         <p>Não possui uma conta? <a href="/front-end/html/cadastro.html">Cadastre-se aqui</a>.</p>
     </main>
     <footer>
         <p>© 2024 ONG Solidária</p>
     </footer>
+
+    <script src="/front-end/JS/login.js"></script>
+   
 </body>
 </html>
 	
