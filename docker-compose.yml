@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: api-org
+    networks:
+      - net
+    ports:
+      - 8080:9090
+    command: python app/BEREBEL.py
+    volumes:
+      - ./db.json:/BEREBEL/db.json
+networks:
+  net:
+    driver: bridge
