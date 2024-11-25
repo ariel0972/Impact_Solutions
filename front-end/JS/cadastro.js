@@ -29,7 +29,7 @@
             var mensagem = "Todos os campos são obrigatórios.";
             alert(mensagem);
         } else {
-            var resultado = criarConta(nome, email, telefone, senha);
+            var resultado = await criarConta(nome, email, telefone, senha);
             if (resultado) {
                 alert(resultado);
                 window.location.href = "http://localhost:5501/front-end/html/login.html";
@@ -42,10 +42,10 @@
     
 
     // Função para criar uma nova conta de usuário
-function criarConta(nome, email, telefone, senha) {
+async function criarConta(nome, email, telefone, senha) {
 
-    return fetch("/app/userSignIn",
-    {body:JSON.stringify({user:nome, password:senha}),  method:"POST", headers:{"Content-Type":"application/json"}}).then(v => {return v.ok})
+    return await fetch("/app/userSignIn",
+    {body:JSON.stringify({user:nome, password:senha}),  method:"POST", headers:{"Content-Type":"application/json"}}).then(v => {return v.ok}).
 
     // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
