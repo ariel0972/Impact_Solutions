@@ -43,26 +43,30 @@
 
     // Função para criar uma nova conta de usuário
 function criarConta(nome, email, telefone, senha) {
-    var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    var usuarioExistente = usuarios.find(function(usuario) {
-        return usuario.email === email;
-    });
+    return fetch("/app/userSignIn",
+    {body:{user:nome, password:senha}}).then(v => v.ok)
 
-    if (usuarioExistente) {
-        return { sucesso: false, mensagem: "O email já está em uso." };
-    } else {
-        var novoUsuario = {
-            nome: nome,
-            email: email,
-            telefone: telefone,
-            senha: senha
-        };
-        usuarios.push(novoUsuario);
-        localStorage.setItem("usuarios", JSON.stringify(usuarios));
+    // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-        return { sucesso: true, mensagem: "Conta criada com sucesso." };
-    }
+    // var usuarioExistente = usuarios.find(function(usuario) {
+    //     return usuario.email === email;
+    // });
+
+    // if (usuarioExistente) {
+    //     return { sucesso: false, mensagem: "O email já está em uso." };
+    // } else {
+    //     var novoUsuario = {
+    //         nome: nome,
+    //         email: email,
+    //         telefone: telefone,
+    //         senha: senha
+    //     };
+    //     usuarios.push(novoUsuario);
+    //     localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+    //     return { sucesso: true, mensagem: "Conta criada com sucesso." };
+    // }
 }
 
 document.getElementById("formCadastro").onsubmit = function(e) {
