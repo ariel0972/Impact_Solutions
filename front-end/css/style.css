@@ -88,7 +88,7 @@ section{
 .main-home{
     width: 100%;
     height: 100vh;
-    background-image: url(/front-end/img/background\ 1.jpg);
+    /* background-image: url(/front-end/img/background\ 1.jpg); */
     background-position: center;
     background-size: cover;
     display: grid;
@@ -110,7 +110,7 @@ section{
     margin: 6px 0 10px;
 }
 .main-text p{
-    color: var(--color5);
+    color: var(--color2);
     font-size: 30px;
     font-style: italic;
     margin-bottom: 20px;
@@ -118,7 +118,7 @@ section{
 
 .main-btn{
     display: inline-block;
-    color: var(--color1);
+    color: var(--color2);
     font-size: 20px;
     font-weight: 500;
     text-transform: capitalize;
@@ -328,7 +328,7 @@ header.sticky{
 
 .contact{
     background-color: #f3f4f6;
-    padding: 80px 8%;
+    padding: 40px 8%;
 }
 .contact-info{
     display: flex;
@@ -420,7 +420,6 @@ header.sticky{
 
 @media(max-width:890px){
     header{
-        padding: 20px 3%;
         transition: .4s;
     }
     
@@ -489,6 +488,13 @@ header.sticky{
     flex-direction: column;
     align-items: center;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    transition: .5 all;
+}
+
+.missao-card:hover {
+    transform: scale(1.05);
+    transition: .5s all;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 18px 32px 0px;
 }
 
 h2.missao__titulo {
@@ -564,7 +570,10 @@ h2.equipe__titulo {
     display: none !important;
 }
 
-
+/* sobre nós  */
+.sobre{
+    background-color: #eee;
+}
 
 
 /* PEQUENO NOTEBOOK  */
@@ -610,6 +619,11 @@ h2.equipe__titulo {
 /* CELULAR  */
 
 @media only screen and (max-width: 500px){
+
+    .logo img{
+        max-width: 100px;
+    }
+
     .missao-card{
         max-width: 100%;
     }
