@@ -45,7 +45,7 @@
 function criarConta(nome, email, telefone, senha) {
 
     return fetch("/app/userSignIn",
-    {body:{user:nome, password:senha}}).then(v => v.ok)
+    {body:{user:nome, password:senha}, method:"POST"}).then(v => v.ok)
 
     // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
