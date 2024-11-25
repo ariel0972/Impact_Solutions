@@ -161,19 +161,19 @@ body {
     width: 17px;
     height: 17px;
 }
-.has-account, .remeber-me {
+.has-account, .remeber-me, .forgot-pass {
     display: flex;
     justify-content: right;
     gap: 5px;
 }
 
-.has-account a{
+.has-account a, .forgot-pass a{
     color: green;
     text-decoration: none;
     font-size: 14px;
 }
 
-.has-account a:hover{
+.has-account a:hover, .forgot-pass a:hover{
     text-decoration: underline;
 }
 
