@@ -127,10 +127,9 @@ section{
     transition: all .42s ease;
 }
 .main-btn:hover{
-   background-color: gray;
-   border: 2px solid black;
-
-   color: black;
+    background-color: #092934;
+    border: 2px solid #8cbcd4;
+    color: #8cbcd4;
 }
 .main-btn i{
     vertical-align: middle;
@@ -439,7 +438,7 @@ header.sticky{
     }
     
 }
-@media(max-width:750px){
+@media(max-width:800px){
     .navmenu{
         position: absolute;
         top: 100%;
@@ -498,8 +497,6 @@ header.sticky{
 }
 
 h2.missao__titulo {
-    display: flex;
-    justify-content: center;
     color: #111;
     font-size: 38px;
     text-transform: capitalize;
@@ -542,8 +539,6 @@ p.missao-card__texto {
 }
 
 h2.equipe__titulo {
-    display: flex;
-    justify-content: center;
     color: #111;
     font-size: 38px;
     text-transform: capitalize;
@@ -573,6 +568,14 @@ h2.equipe__titulo {
 /* sobre nós  */
 .sobre{
     background-color: #eee;
+}
+
+.sobre__titulo{
+    color: #111;
+    font-size: 38px;
+    text-transform: capitalize;
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 

@@ -64,6 +64,7 @@ a {
 
 .showcase{
     padding-bottom: 0 !important;
+    padding-top: 0 !important;
 }
 
 .showcase__container {
@@ -157,7 +158,13 @@ header .showcase__container {
     .info{
         margin-top: -60px;
     }
+
+    .showcase{
+        padding-bottom: 80px !important;
+        padding-top: 0px !important;
+    }
 }
+
 
 @media only screen and (max-width: 500px){
     .info .big-title{
