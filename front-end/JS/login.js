@@ -2,7 +2,7 @@
 
     var btnEntrar = document.getElementById("enter");
     var txtEmail = document.getElementById("email");
-    var txtSenha = document.getElementById("password");
+    var txtSenha = document.getElementById("senha");
 
     txtEmail.focus();
 
@@ -24,7 +24,7 @@
     btnEntrar.onclick = function (e) {
         var btnEntrar = document.getElementById("enter");
         var txtEmail = document.getElementById("email");
-        var txtSenha = document.getElementById("password");
+        var txtSenha = document.getElementById("senha");
         e.preventDefault();
 
         var email = txtEmail.value;
@@ -48,14 +48,14 @@
 
     //função pra exibir o erro na caixa de login
     function exibirMensagemErro(mensagem) {
+        alert(mensagem)
+        // var spnErro = document.getElementById("spnErro");
 
-        var spnErro = document.getElementById("spnErro");
-
-        spnErro.innerText = mensagem;
-        spnErro.style.display = "block";
-        setTimeout(function () {
-            spnErro.style.display = "none";
-        }, 5000);
+        // spnErro.innerText = mensagem;
+        // spnErro.style.display = "block";
+        // setTimeout(function () {
+        //     spnErro.style.display = "none";
+        // }, 5000);
         
     }
 
@@ -63,7 +63,7 @@
         e.preventDefault();
     
         var email = document.getElementById("email").value;
-        var senha = document.getElementById("password").value;
+        var senha = document.getElementById("senha").value;
     
         var resultado = fazerLogin(email, senha);
     
