@@ -22,6 +22,9 @@
     
 
     btnEntrar.onclick = function (e) {
+        var btnEntrar = document.getElementById("enter");
+        var txtEmail = document.getElementById("email");
+        var txtSenha = document.getElementById("password");
         e.preventDefault();
 
         var email = txtEmail.value;
