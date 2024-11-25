@@ -10,6 +10,13 @@
     txtNome.focus();
 
     btnCadastrar.onclick = function (e) {
+        var btnCadastrar = document.getElementById("regis");
+        var txtNome = document.getElementById("nome");
+        //var txtSobrenome = document.getElementById("txtSobrenome");
+        var txtEmail = document.getElementById("email");
+        var txtTelefone = document.getElementById("telefone");
+        //var slcGenero = document.getElementById("slcGenero");
+        var txtSenha = document.getElementById("senha");
         e.preventDefault();
         var nome = txtNome.value;
         //var sobrenome = txtSobrenome.value;
