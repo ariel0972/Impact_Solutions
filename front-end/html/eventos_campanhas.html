@@ -8,15 +8,15 @@
 </head>
 <body>
     <header>
-        <a href="/front-end/html/index.html" id="logo"><img src="/front-end/img/Impact Solutions.png"></img></a>
+        <a href="/front-end/html/index.html" id="logo"><img src="/front-end/img/Impact Solutions.png" alt="Logo"></a>
         <h1>Eventos e Campanhas</h1>
         <p>Conectando pessoas às oportunidades de um mundo melhor</p>
+        <nav>
+            <a href="/front-end/html/voluntarios.html" id="link-voluntarios">Área Voluntários</a>
+            <a href="/front-end/html/ongs.html" id="link-ongs">Área ONGs</a>
+            <a href="#logout" id="logout">Sair</a>
+        </nav>
     </header>
-    <nav>
-        <a href="#eventos">Eventos</a>
-        <a href="#campanhas">Campanhas</a>
-        <a href="#contato">Contato</a>
-    </nav>
     <main class="container">
         <!-- Seção de Eventos -->
         <section class="section" id="eventos">
@@ -29,6 +29,17 @@
             <h2>Campanhas</h2>
             <div id="campaign-cards-container"></div> <!-- Cards de campanhas gerados dinamicamente -->
         </section>
+
+        <!-- Modal para ONGs (Adicionar/Editar Eventos ou Campanhas) -->
+        <div id="modal-form" class="modal hidden">
+            <form id="modal-content">
+                <h3 id="modal-title">Adicionar/Editar</h3>
+                <input type="text" id="item-name" placeholder="Nome" required />
+                <textarea id="item-description" placeholder="Descrição" required></textarea>
+                <button type="submit" id="modal-save-btn">Salvar</button>
+                <button type="button" id="modal-cancel-btn">Cancelar</button>
+            </form>
+        </div>
     </main>
     <footer>
         <p>&copy; 2024 Impact Solutions - Todos os direitos reservados</p>

@@ -28,8 +28,7 @@ body {
     align-items: center;
     padding: 2rem;
     line-height: 1.5;
-    background: linear-gradient(to bottom, #0a4407, #012608);
-    background-repeat: no-repeat;
+    background: linear-gradient(to bottom, #14424b, #012608);
     height: 100%;
     margin: 0;
 }
@@ -116,12 +115,40 @@ button {
 }
 
 button:disabled {
-    background-color: #555; /* Cor mais escura quando o botão está desabilitado */
+    background-color: #555;
     cursor: not-allowed;
 }
 
 button:hover {
     background-color: var(--card-color-light);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--text-color-light);
+    color: var(--text-color-dark);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 16px var(--shadow-color);
+    padding: 2rem;
+    display: none;
+    z-index: 1000;
+}
+.modal.hidden {
+    display: none;
+}
+#modal-content input, #modal-content textarea {
+    width: 100%;
+    margin-bottom: 1rem;
+    padding: 0.7rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--card-color-dark);
+}
+#modal-content button {
+    margin-right: 1rem;
 }
 
 /* Responsividade */
@@ -130,6 +157,6 @@ button:hover {
         flex-direction: column;
     }
     .section h2 {
-        font-size: 1.25rem; /* Ajusta o tamanho do título */
+        font-size: 1.25rem;
     }
 }
