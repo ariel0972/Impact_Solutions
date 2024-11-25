@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   api:
-    image: ghcr.io/synesis-one/dyf-db:dev
+    image: ghcr.io/ariel0972/website:teste
     networks:
       - net
     ports:
