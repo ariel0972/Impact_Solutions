@@ -30,8 +30,8 @@
             alert(mensagem);
         } else {
             var resultado = criarConta(nome, email, telefone, senha);
-            if (resultado.sucesso) {
-                alert(resultado.mensagem);
+            if (resultado) {
+                alert(resultado);
                 window.location.href = "http://localhost:5501/front-end/html/login.html";
                 // Redirecionar para página de login ou qualquer outra ação necessária
             } else {
@@ -45,7 +45,7 @@
 function criarConta(nome, email, telefone, senha) {
 
     return fetch("/app/userSignIn",
-    {body:JSON.stringify({user:nome, password:senha}),  method:"POST", headers:{"Content-Type":"application/json"}}).then(v => v.ok)
+    {body:JSON.stringify({user:nome, password:senha}),  method:"POST", headers:{"Content-Type":"application/json"}}).then(v => {return v.ok})
 
     // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
