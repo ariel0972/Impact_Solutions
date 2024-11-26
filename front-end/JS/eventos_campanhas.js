@@ -1,83 +1,115 @@
-document.addEventListener('DOMContentLoaded', function () {
-    let userToken = '';
-    let userType = '';
+document.addEventListener("DOMContentLoaded", () => {
+    const apiBaseUrl = "http://localhost:9090/app";
 
-    // Autenticação e diferenciação de usuários
-    function authenticateUser() {
-        fetch('/api/Authenticate', {
-            method: 'GET',
-            headers: { Authorization: `Bearer ${userToken}` },
-        })
-            .then((response) => response.json())
-            .then((data) => {
-                userType = data.userType;
-                userToken = data.token;
+    const eventContainer = document.getElementById("event-cards-container");
+    const campaignContainer = document.getElementById("campaign-cards-container");
+    const modal = document.getElementById("modal-form");
+    const modalTitle = document.getElementById("modal-title");
+    const itemName = document.getElementById("item-name");
+    const itemDescription = document.getElementById("item-description");
+    const saveButton = document.getElementById("modal-save-btn");
+    const cancelButton = document.getElementById("modal-cancel-btn");
 
-                if (userType === 'ONG') {
-                    document.getElementById('link-voluntarios').classList.add('hidden');
-                } else {
-                    document.getElementById('link-ongs').classList.add('hidden');
-                }
+    let isEditingEvent = false;
+    let editId = null;
 
-                loadData();
-            })
-            .catch((error) => console.error('Erro ao autenticar:', error));
-    }
-
-    // Carregar dados
-    function loadData() {
-        if (userType === 'ONG') {
-            loadOwnCampaignsAndEvents();
-        } else {
-            loadAllCampaignsAndEvents();
+    // Fetch e renderiza itens
+    const fetchData = async (endpoint, container) => {
+        try {
+            const token = localStorage.getItem("userToken");
+            const response = await fetch(`${apiBaseUrl}/${endpoint}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userToken: token }),
+            });
+            const data = await response.json();
+            renderItems(data, container, endpoint === "getEvents");
+        } catch (error) {
+            console.error("Error fetching data:", error);
         }
-    }
+    };
 
-    // Modal para criação e edição (ONGs)
-    function openModal(item = null, isEvent = false) {
-        const modal = document.getElementById('modal-form');
-        const title = document.getElementById('modal-title');
-        const nameInput = document.getElementById('item-name');
-        const descInput = document.getElementById('item-description');
+    const renderItems = (items, container, isEvent) => {
+        container.innerHTML = "";
+        items.forEach((item) => {
+            const card = document.createElement("div");
+            card.classList.add("item");
+            card.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+                ${isEvent ? `<p><strong>Data:</strong> ${item.date}</p>` : ""}
+                <button onclick="subscribe(${item.id}, ${isEvent})">${
+                item.isSubscribed ? "Cancelar Inscrição" : "Inscrever-se"
+            }</button>
+            `;
+            container.appendChild(card);
+        });
+    };
 
-        if (item) {
-            title.textContent = 'Editar Item';
-            nameInput.value = item.name;
-            descInput.value = item.description;
+    // Adapta o modal
+    const openModal = (id = null, isEventModal = true) => {
+        modal.classList.remove("hidden");
+        modalTitle.textContent = id ? "Editar Item" : "Adicionar Item";
+        isEditingEvent = isEventModal;
+        editId = id;
+
+        if (id) {
+            const item = document.getElementById(id);
+            itemName.value = item.querySelector("h3").textContent;
+            itemDescription.value = item.querySelector("p").textContent;
         } else {
-            title.textContent = 'Adicionar Item';
-            nameInput.value = '';
-            descInput.value = '';
+            itemName.value = "";
+            itemDescription.value = "";
         }
+    };
 
-        modal.classList.remove('hidden');
-        document.getElementById('modal-save-btn').onclick = function () {
-            saveItem(nameInput.value, descInput.value, isEvent);
-        };
-        document.getElementById('modal-cancel-btn').onclick = function () {
-            modal.classList.add('hidden');
-        };
-    }
+    const closeModal = () => {
+        modal.classList.add("hidden");
+        itemName.value = "";
+        itemDescription.value = "";
+        editId = null;
+    };
 
-    // Salvar novo ou editar existente
-    function saveItem(name, description, isEvent) {
-        const endpoint = isEvent ? '/api/saveEvent' : '/api/saveCampaign';
-        fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${userToken}`,
-            },
-            body: JSON.stringify({ name, description }),
-        })
-            .then((response) => response.json())
-            .then(() => {
-                alert(`${isEvent ? 'Evento' : 'Campanha'} salvo com sucesso!`);
-                document.getElementById('modal-form').classList.add('hidden');
-                loadData();
-            })
-            .catch((error) => console.error('Erro ao salvar item:', error));
-    }
+    saveButton.addEventListener("click", async (e) => {
+        e.preventDefault();
+        try {
+            const token = localStorage.getItem("userToken");
+            const endpoint = isEditingEvent ? "CreateEvents" : "CreateCampaigns";
+            await fetch(`${apiBaseUrl}/${endpoint}`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    userToken: token,
+                    name: itemName.value,
+                    description: itemDescription.value,
+                }),
+            });
+            closeModal();
+            fetchData(isEditingEvent ? "getEvents" : "getCampaings", isEditingEvent ? eventContainer : campaignContainer);
+        } catch (error) {
+            console.error("Error saving data:", error);
+        }
+    });
 
-    authenticateUser();
+    cancelButton.addEventListener("click", closeModal);
+
+    // Fetch Eventos e Campanhas ao carregar a pag
+    fetchData("getEvents", eventContainer);
+    fetchData("getCampaings", campaignContainer);
 });
+
+// Inscrição
+async function subscribe(id, isEvent) {
+    const endpoint = isEvent ? "ApplyEvent" : "SubscribeCampaign";
+    const token = localStorage.getItem("userToken");
+    try {
+        await fetch(`${apiBaseUrl}/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userToken: token, EventId: id }),
+        });
+        location.reload();
+    } catch (error) {
+        console.error("Error subscribing:", error);
+    }
+}

@@ -17,20 +17,23 @@
             <a href="#logout" id="logout">Sair</a>
         </nav>
     </header>
+
     <main class="container">
         <!-- Seção de Eventos -->
         <section class="section" id="eventos">
             <h2>Eventos</h2>
-            <div id="event-cards-container"></div> <!-- Cards de eventos gerados dinamicamente -->
+            <div id="event-cards-container"></div>
+            <button onclick="openModal(null, true)">Adicionar Evento</button>
         </section>
 
         <!-- Seção de Campanhas -->
         <section class="section" id="campanhas">
             <h2>Campanhas</h2>
-            <div id="campaign-cards-container"></div> <!-- Cards de campanhas gerados dinamicamente -->
+            <div id="campaign-cards-container"></div>
+            <button onclick="openModal(null, false)">Adicionar Campanha</button>
         </section>
 
-        <!-- Modal para ONGs (Adicionar/Editar Eventos ou Campanhas) -->
+        <!-- Modal para Adicionar/Editar Eventos ou Campanhas -->
         <div id="modal-form" class="modal hidden">
             <form id="modal-content">
                 <h3 id="modal-title">Adicionar/Editar</h3>
@@ -41,9 +44,11 @@
             </form>
         </div>
     </main>
+
     <footer>
         <p>&copy; 2024 Impact Solutions - Todos os direitos reservados</p>
     </footer>
-    <script src="/front-end/JS/eventos_campanhas.js"></script>
+
+    <script src="/front-end/js/eventos_campanhas.js"></script>
 </body>
 </html>
