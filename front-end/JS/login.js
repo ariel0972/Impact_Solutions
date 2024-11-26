@@ -6,27 +6,21 @@
 
     txtEmail.focus();
 
-    function fazerLogin(email, senha) {
-        fetch("/app/Login")
-        .then((response) => {
+    async function fazerLogin(email, senha) {
+        // const response = 
+        return await fetch(`/app/Login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user: email, password: senha }),
+        }).then((response) => {
           if (!response.ok) {
+            exibirMensagemErro("nao foi possivel realizar o login")
             throw new Error(`HTTP error, status = ${response.status}`);
           }
           return response.json();
         })
-        // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    
-        // var usuario = usuarios.find(function(usuario) {
-        //     return usuario.email === email;
-        // });
-    
-        // if (usuario && usuario.senha === senha) {
-        //     return { sucesso: true, mensagem: "Login bem-sucedido.", usuario: usuario};
-        // } else {
-        //     exibirMensagemErro("Email ou senha incorretos");
-        // }
     }
-    
+
 
     btnEntrar.onclick = async function (e) {
         var btnEntrar = document.getElementById("enter");
@@ -44,9 +38,11 @@
             exibirMensagemErro("Campo Senha obrigatório.");
         }
         else {
-            var resultado = fazerLogin(email, senha);
+            var resultado = await fazerLogin(email, senha);
             if (resultado) {
-                window.location.href = "http://localhost:5501/front-end/html/perfil_ong.html";
+                localStorage.setItem("userToken", resultado.token)
+                localStorage.setItem("userType", resultado.userType)
+                window.location.href = "/front-end/html/perfil_ong.html";
             } else {
                 alert(resultado.mensagem);
             }
@@ -56,14 +52,6 @@
     //função pra exibir o erro na caixa de login
     function exibirMensagemErro(mensagem) {
         alert(mensagem)
-        // var spnErro = document.getElementById("spnErro");
-
-        // spnErro.innerText = mensagem;
-        // spnErro.style.display = "block";
-        // setTimeout(function () {
-        //     spnErro.style.display = "none";
-        // }, 5000);
-        
     }
 
     document.getElementById("formLogin").onsubmit = async function(e) {
