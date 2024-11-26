@@ -35,7 +35,7 @@
                 window.location.href = "http://localhost:5501/front-end/html/login.html";
                 // Redirecionar para página de login ou qualquer outra ação necessária
             } else {
-                alert(resultado.mensagem);
+                alert("fodase");
             }
         }
     };
