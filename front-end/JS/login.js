@@ -28,7 +28,7 @@
     }
     
 
-    btnEntrar.onclick = function (e) {
+    btnEntrar.onclick = async function (e) {
         var btnEntrar = document.getElementById("enter");
         var txtEmail = document.getElementById("email");
         var txtSenha = document.getElementById("senha");
@@ -66,17 +66,17 @@
         
     }
 
-    document.getElementById("formLogin").onsubmit = function(e) {
+    document.getElementById("formLogin").onsubmit = async function(e) {
         e.preventDefault();
     
         var email = document.getElementById("email").value;
         var senha = document.getElementById("senha").value;
     
-        var resultado = fazerLogin(email, senha);
+        var resultado = await fazerLogin(email, senha);
     
-        if (resultado.sucesso) {
+        if (resultado) {
             // Login bem-sucedido, redirecione para a página de tarefas
-            window.location.href = "http://localhost:5501/front-end/html/perfil_ong.html";
+            window.location.href = "/front-end/html/perfil_ong.html";
         } else {
             // Exiba mensagem de erro
             alert(resultado.mensagem);

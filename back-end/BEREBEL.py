@@ -92,6 +92,7 @@ def create_campaigns():# I'm tired
     x["campaigns"].append({"id": generateRandom(5),# why id is random? lie: non sequetial id is more secure. reality: function is already there, why not? i'm tire
                            "userToken":req["userToken"], "name": req["name"], "description":req["description"], "subscriptions":[]})
     open("db.json","w").write(json.dumps(x))
+    return {}
 
 def root_dir():  # pragma: no cover
     return os.path.abspath("/BEREBEL/front/")
@@ -236,13 +237,14 @@ def UnApplyEvent():
         db["Events"][i]["subscriptions"].remove(user["id"])
     save_DB(db)
     
-@app.post("/getCampaings")
+@app.post("/app/getCampaings")
 def getCampaings():
     req = request.json
     userToken = req["userToken"]
     user = GetUserByToken(userToken)
     db = open_DB()
-    [{"name":c["name"],
+    print (db["campaigns"])
+    return [{"name":c["name"],
       "id":c["id"],
       "description":c["description"],
       "isSubscribed":user["id"] in c["subscriptions"]
@@ -250,7 +252,7 @@ def getCampaings():
         for c in db["campaigns"]]
 
 
-@app.post("/getCampaignUsers")
+@app.post("/app/getCampaignUsers")
 def getCampaingsUsers():
     req = request.json
     userToken = req["userToken"]
@@ -263,7 +265,7 @@ def getCampaingsUsers():
             continue
         return [ GetUserById(u) for u in c["subscriptions"]]
 
-@app.post("/getEventUsers")
+@app.post("/app/getEventUsers")
 def getEventUsers():
     req = request.json
     userToken = req["userToken"]
@@ -277,13 +279,13 @@ def getEventUsers():
         return [ GetUserById(u) for u in c["subscriptions"]]
 
 
-@app.post("/getEvents")
+@app.post("/app/getEvents")
 def getCampasssings():
     req = request.json
     userToken = req["userToken"]
     user = GetUserByToken(userToken)
     db = open_DB()
-    [{"name":c["name"],
+    return [{"name":c["name"],
       "id":c["id"],
       "description":c["description"],
       "date":c["date"],

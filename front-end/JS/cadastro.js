@@ -68,6 +68,8 @@
     */
    // não sei isso aqui ta certo mas a gente aceita que sim
 
+    // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
     // var usuarioExistente = usuarios.find(function(usuario) {
     //     return usuario.email === email;
     // });

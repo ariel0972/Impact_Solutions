@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   api:
+    stop_signal: SIGINT
     build:
       context: .
       dockerfile: ./Dockerfile
