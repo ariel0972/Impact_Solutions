@@ -113,4 +113,8 @@ async function subscribe(id, isEvent) {
     } catch (error) {
         console.error("Error subscribing:", error);
     }
+
+   function logout() {
+            
+    }
 }
