@@ -118,13 +118,14 @@ section{
 
 .main-btn{
     display: inline-block;
-    color: var(--color2);
+    color: white;
     font-size: 20px;
     font-weight: 500;
     text-transform: capitalize;
     border: 2px solid white;
     padding: 12px 25px;
     transition: all .42s ease;
+    backdrop-filter: blur(10px);
 }
 .main-btn:hover{
     background-color: #092934;
