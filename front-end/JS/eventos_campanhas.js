@@ -1,5 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const apiBaseUrl = "http://localhost:5501/app";
+// document.addEventListener("DOMContentLoaded", () => {
+    // const apiBaseUrl = "http://localhost:5501/app";
 
 // const apiBaseUrl = "http://localhost:8080/app";
 const apiBaseUrl = "/app";
@@ -15,7 +15,7 @@ const cancelButton = document.getElementById("modal-cancel-btn");
 
 let isEditingEvent = false;
 let editId = null;
-
+localStorage.setItem("userToken", "xlmeefuexb")
 // Fetch e renderiza itens
 const fetchData = async (endpoint, container) => {
     try {
@@ -41,7 +41,7 @@ const renderItems = (items, container, isEvent) => {
             <h3>${item.name}</h3>
             <p>${item.description}</p>
             ${isEvent ? `<p><strong>Data:</strong> ${item.date}</p>` : ""}
-            <button onclick="subscribe(${item.id}, ${isEvent})">${
+            <button onclick="subscribe('${item.id}', ${isEvent})">${
             item.isSubscribed ? "Cancelar Inscrição" : "Inscrever-se"
         }</button>
         `;
@@ -108,7 +108,7 @@ async function subscribe(id, isEvent) {
         await fetch(`${apiBaseUrl}/${endpoint}`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userToken: token, EventId: id }),
+            body: JSON.stringify({ userToken: token, Id: id }),
         });
         location.reload();
     } catch (error) {

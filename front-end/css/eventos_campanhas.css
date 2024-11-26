@@ -134,7 +134,6 @@ button:hover {
     border-radius: var(--border-radius);
     box-shadow: 0 4px 16px var(--shadow-color);
     padding: 2rem;
-    display: none;
     z-index: 1000;
 }
 .modal.hidden {

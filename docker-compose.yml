@@ -13,6 +13,7 @@ services:
     command: python app/BEREBEL.py
     volumes:
       - ./db.json:/BEREBEL/db.json
+      - ./front-end/:/BEREBEL/front/
 networks:
   net:
     driver: bridge

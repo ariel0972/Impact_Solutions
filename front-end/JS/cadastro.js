@@ -29,13 +29,14 @@
             var mensagem = "Todos os campos são obrigatórios.";
             alert(mensagem);
         } else {
-            var resultado = await criarConta(nome, email, telefone, senha);
+            var resultado =  await criarConta(nome, email, telefone, senha);
             if (resultado) {
                 alert(resultado);
-                window.location.href = "http://localhost:5501/front-end/html/login.html";
+                window.location.href = "/front-end/html/login.html";
                 // Redirecionar para página de login ou qualquer outra ação necessária
             } else {
                 alert("fodase");
+                console.log(resultado);
             }
         }
     };
@@ -44,7 +45,7 @@
     // Função para criar uma nova conta de usuário
   async function criarConta(nome, email, telefone, senha) {
 
-     await fetch("/app/userSignIn",
+    return await fetch("/app/userSignIn",
     {body:JSON.stringify
         ({user:nome, password:senha}),
           method:"POST",
