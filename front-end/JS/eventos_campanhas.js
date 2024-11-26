@@ -15,7 +15,7 @@ const cancelButton = document.getElementById("modal-cancel-btn");
 
 let isEditingEvent = false;
 let editId = null;
-localStorage.setItem("userToken", "xlmeefuexb")
+// localStorage.setItem("userToken", "xlmeefuexb")
 // Fetch e renderiza itens
 const fetchData = async (endpoint, container) => {
     try {
@@ -38,6 +38,7 @@ const renderItems = (items, container, isEvent) => {
         const card = document.createElement("div");
         card.classList.add("item");
         card.innerHTML = `
+            <button class="criarevento">Criar Evento</button>
             <h3>${item.name}</h3>
             <p>${item.description}</p>
             ${isEvent ? `<p><strong>Data:</strong> ${item.date}</p>` : ""}
@@ -114,7 +115,7 @@ async function subscribe(id, isEvent) {
         console.error("Error subscribing:", error);
     }
 
-   function logout() {
-            
-    }
+}
+function logout() {
+    localStorage.setItem("userToken", "")
 }

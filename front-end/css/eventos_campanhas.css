@@ -104,6 +104,7 @@ img {
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 20px;
+    position: relative;
 }
 
 .item:hover {
@@ -128,6 +129,8 @@ button:disabled {
 
 button:hover {
     background-color: var(--card-color-light);
+    border: 1px solid #2e5d53;
+    color: #2e5d53;
 }
 
 /* Modal */
@@ -174,4 +177,13 @@ footer {
     .section h2 {
         font-size: 1.25rem;
     }
+}
+
+button.criarevento {
+    position: absolute;
+    right: 1.5rem;
+}
+
+.item h3 {
+    max-width: 80%;
 }

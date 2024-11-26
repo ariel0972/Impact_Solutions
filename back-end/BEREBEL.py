@@ -46,18 +46,24 @@ def GetUserById(user_id:str):
         return u
     return None
 
-@app.post('/app/userSignIn')
+# @app.post('/app/userSignIn')
+
+@app.post('/app/SignIn')
 def UserSignin():# this is so bad that if multiple requests to sigin the DB will just get fucked
     req = request.json
     req["user"]
     req["password"]
+    req["type"]
     x = open("db.json","r").read()
     x = json.loads(x)
     token = generateRandom(10)
     id_user = generateRandom(10)
-    x["users"].append({"id": id_user, "user":req["user"], "password":req["password"], "token":token, "userType":0})
+    for u in x["users"]:
+        if u["user"] == req["user"]:
+            return Response(status=401)
+    x["users"].append({"id": id_user, "user":req["user"], "password":req["password"], "token":token, "userType":req["type"]})
     open("db.json","w").write(json.dumps(x))
-    return {"token":token, "userType":0}
+    return {"token":token, "userType":req["type"]}
 
 @app.post('/app/Login')
 def Login():
@@ -75,7 +81,7 @@ def Login():
         token = generateRandom(10)
         x["users"][i]["token"] = token
         return {"token":token, "userType":x["users"][i]["userType"]}
-
+    return Response(status=401)
 
 @app.post('/app/CreateCampaigns')
 def create_campaigns():# I'm tired
@@ -133,6 +139,13 @@ def get_resource(path):  # pragma: no cover
     content = get_file(complete_path)
     return Response(content, mimetype=mimetype)
 
+@app.post('/app/DeleteEvent')
+def DeleteEvents():
+    req = request.json
+    campaign_id = req["CampaignId"]
+    user_token = req["userToken"]
+
+
 @app.post('/app/CreateEvents')
 def CreateEvents():
     req = request.json
@@ -145,9 +158,6 @@ def CreateEvents():
     user = GetUserByToken(req["userToken"])
     if not user:
         return 
-    # if user["userType"] != 1: #architect
-    #     return
-    # open("campaign","+a").write({""})
     x = open("db.json","r").read()
     x = json.loads(x)
     if not any(True for c in x["campaigns"] if c["id"] == campaign_id):

@@ -47,7 +47,7 @@
                 window.location.href = "/front-end/html/login.html";
                 // Redirecionar para página de login ou qualquer outra ação necessária
             } else {
-                alert("fodase");
+                alert("nao foi possivel criar o login");
                 console.log(resultado);
             }
         }
