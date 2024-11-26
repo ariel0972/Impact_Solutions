@@ -22,6 +22,7 @@
                 <form id="formCadastro" class="form-box sign-form">
                     <div class="form-title">
                         <span>Cadastro</span>
+                        <p class="message"></p>
                     </div>
                     <div class="form-inputs">
                         <div class="input-box">
@@ -52,7 +53,12 @@
                         
 
                         <!-- Campos específicos para cada tipo de usuário -->
-    
+                        <div class="input-box">
+                            <input type="radio" name="type-user" id="userONG" value="ONG">
+                            <label for="ONG">ONG</label>
+                            <input type="radio" name="type-user" id="userVolun" value="voluntario">
+                            <label for="voluntario">Vonlutário</label>
+                        </div>
                         
                         <div class="has-account">
                             <p>Já possui uma

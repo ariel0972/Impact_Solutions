@@ -83,4 +83,14 @@
         }
         
     };
+
+    var pageSign = document.getElementById("sign");
+    var pagelogin = document.getElementById("login");
+
+    pagelogin.onclick = function(){
+        window.location.href = '/front-end/html/login.html'
+    }
+    pageSign.onclick = function(){
+        window.location.href = '/front-end/html/cadastro.html'
+    }
 }

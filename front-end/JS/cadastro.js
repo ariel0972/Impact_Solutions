@@ -7,7 +7,18 @@
     //var slcGenero = document.getElementById("slcGenero");
     var txtSenha = document.getElementById("senha");
 
+    
     txtNome.focus();
+    
+    var pageSign = document.getElementById("sign");
+    var pagelogin = document.getElementById("login");
+
+    pagelogin.onclick = function(){
+        window.location.href = '/front-end/html/login.html'
+    }
+    pageSign.onclick = function(){
+        window.location.href = '/front-end/html/cadastro.html'
+    }
 
     btnCadastrar.onclick = async function (e) {
         var btnCadastrar = document.getElementById("regis");
@@ -17,6 +28,7 @@
         var txtTelefone = document.getElementById("telefone");
         //var slcGenero = document.getElementById("slcGenero");
         var txtSenha = document.getElementById("senha");
+
         e.preventDefault();
         var nome = txtNome.value;
         //var sobrenome = txtSobrenome.value;
@@ -24,7 +36,7 @@
         var telefone = txtTelefone.value;
         var email = txtEmail.value;
         //var genero = slcGenero.value;
-    
+
         if (nome == "" || senha == "" || telefone == "" || email == "") {
             var mensagem = "Todos os campos são obrigatórios.";
             alert(mensagem);
