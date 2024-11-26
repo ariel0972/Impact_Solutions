@@ -9,7 +9,7 @@
 
     txtNome.focus();
 
-    btnCadastrar.onclick = function (e) {
+    btnCadastrar.onclick = async function (e) {
         var btnCadastrar = document.getElementById("regis");
         var txtNome = document.getElementById("nome");
         //var txtSobrenome = document.getElementById("txtSobrenome");
@@ -29,7 +29,7 @@
             var mensagem = "Todos os campos são obrigatórios.";
             alert(mensagem);
         } else {
-            var resultado = criarConta(nome, email, telefone, senha);
+            var resultado = await criarConta(nome, email, telefone, senha);
             if (resultado) {
                 alert(resultado);
                 window.location.href = "http://localhost:5501/front-end/html/login.html";
@@ -45,10 +45,15 @@
   async function criarConta(nome, email, telefone, senha) {
 
      await fetch("/app/userSignIn",
-    {body:JSON.stringify({user:nome, password:senha}),  method:"POST", headers:{"Content-Type":"application/json"}}).then(v => {return v.ok})
+    {body:JSON.stringify
+        ({user:nome, password:senha}),
+          method:"POST",
+           headers:{"Content-Type":"application/json"}})
+           .then(v => {return v.ok})
 
 
-    /* fetch("/app/userSignIn", {
+    /*
+    fetch("/app/userSignIn", {
     method: 'POST',
     headers: {
         'Content-type': 'application/json'
@@ -60,8 +65,8 @@
         }).then(res => {
             return res.json()
             })
-    não sei isso aqui ta certo mas a gente aceita que sim
     */
+   // não sei isso aqui ta certo mas a gente aceita que sim
 
     // var usuarioExistente = usuarios.find(function(usuario) {
     //     return usuario.email === email;
@@ -102,21 +107,3 @@ document.getElementById("formCadastro").onsubmit = function(e) {
     }
 };
 }
-
-// Exibe campos específicos com base no tipo de usuário selecionado
-document.getElementById('tipo-usuario').addEventListener('change', function () {
-    var tipo = this.value;
-    if (tipo === 'voluntario') {
-        document.getElementById('dados-voluntario').style.display = 'block';
-        document.getElementById('dados-ong').style.display = 'none';
-    } else if (tipo === 'ong') {
-        document.getElementById('dados-ong').style.display = 'block';
-        document.getElementById('dados-voluntario').style.display = 'none';
-    } else {
-        document.getElementById('dados-voluntario').style.display = 'none';
-        document.getElementById('dados-ong').style.display = 'none';
-    }
-});
-
-// Supondo que esteja usando Node.js com Express
-// A* - apenas supondo mesmo
