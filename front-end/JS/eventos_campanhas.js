@@ -43,8 +43,7 @@ const renderItems = (items, container, isEvent) => {
             ${isEvent ? `<p><strong>Data:</strong> ${item.date}</p>` : ""}
             <button onclick="subscribe('${item.id}', ${isEvent})">${
             item.isSubscribed ? "Cancelar Inscrição" : "Inscrever-se"
-        }</button>
-        `;
+        }</button>`;
         container.appendChild(card);
     });
 };
