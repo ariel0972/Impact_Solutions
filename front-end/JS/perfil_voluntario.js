@@ -7,7 +7,7 @@
 async function fetchInformation(){
     token = localStorage.getItem("userToken")
     // await fetch("/api/GetUserInfo", )
-    const response = await fetch(`/app/GetUserInfo`, {
+    const response = await fetch(`/app/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userToken: token }),

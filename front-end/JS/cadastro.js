@@ -121,4 +121,11 @@ document.getElementById("formCadastro").onsubmit = function(e) {
         console.error("MUITO BURRO MANÉ");
     }
 };
+    const loginbtnpage = document.querySelector('#login');
+    const signbtnpage = document.querySelector('#sign');
+    if (window.location.pathname == "/front-end/html/cadastro.html"){
+        signbtnpage.style.backgroundColor = "var(--color1)"
+        loginbtnpage.style.backgroundColor = "var(--color3)"
+        loginbtnpage.style.opacity = "0.5"
+    }
 }

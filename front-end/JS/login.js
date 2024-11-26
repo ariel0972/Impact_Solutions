@@ -93,4 +93,12 @@
     pageSign.onclick = function(){
         window.location.href = '/front-end/html/cadastro.html'
     }
+
+    const loginbtnpage = document.querySelector('#login');
+    const signbtnpage = document.querySelector('#sign');
+    if (window.location.pathname == "/front-end/html/login.html"){
+        signbtnpage.style.backgroundColor = "var(--color3)"
+        loginbtnpage.style.backgroundColor = "var(--color1)"
+        signbtnpage.style.opacity = "0.5"
+    }
 }

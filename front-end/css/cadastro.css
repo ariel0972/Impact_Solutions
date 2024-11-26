@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
 :root {
-    --color1:  #7aba51;
-    --color2:  #48872a;
-    --color3:  #8cbcd4;
-    --color4:  #062206;
-    --color5:  #84bb95;
-    --color6:  #1b5f0d;
-    --color7:  #1b2d6f;
-    --color8:  #4d952b;
-    --color9:  #508f7e;
+    --color1: #7aba51;
+    --color2: #48872a;
+    --color3: #8cbcd4;
+    --color4: #062206;
+    --color5: #84bb95;
+    --color6: #1b5f0d;
+    --color7: #1b2d6f;
+    --color8: #4d952b;
+    --color9: #508f7e;
     --color10: #29414b;
 }
 
@@ -37,12 +37,12 @@ body {
 
 /* Formulários */
 .form-container-regis {
-   display: flex;
-   width: 450px;
-   height: 650px;
-   border: 3px solid rgba(0, 0, 0, 0.2);
-   border-radius: 30px;
-   backdrop-filter: blur(20px);
+    display: flex;
+    width: 450px;
+    height: 650px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    backdrop-filter: blur(20px);
 }
 
 .form-container {
@@ -52,34 +52,38 @@ body {
     border: 3px solid rgba(0, 0, 0, 0.2);
     border-radius: 30px;
     backdrop-filter: blur(20px);
- }
+}
 
-.form-col{
+.form-col {
     position: relative;
     width: 100%;
 }
 
-.btn-box{
+.btn-box {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 30px;
 }
-.home-btn{
+
+.home-btn {
     align-items: center;
     margin: 10px 20px;
     transition: 0.3s;
-    
+
 }
-.home-btn a{
+
+.home-btn a {
     color: rgb(40, 128, 112);
     display: inline-block;
-    
+
 }
-.home-btn:hover{
+
+.home-btn:hover {
     transform: scale(1.05);
 }
-.btn{
+
+.btn {
     font-weight: 500;
     padding: 8px 30px;
     border: none;
@@ -91,14 +95,15 @@ body {
     transition: .2s;
 }
 
-.btn-1{
+.btn-1 {
     background: #1b2d6f;
 }
-.btn:hover{
+
+.btn:hover {
     opacity: 0.85;
 }
 
-.form-box{
+.form-box {
     position: absolute;
     transform: translateX(-50%);
     display: flex;
@@ -110,27 +115,29 @@ body {
 }
 
 .form-title {
-    margin: 30px 0;
+    margin: 25px 0;
     color: var(--color1);
     font-size: 28px;
     font-weight: 600;
 }
 
-.sign-form{
+.sign-form {
     left: 50%;
 }
 
-.login-form{
+.login-form {
     left: 50%
 }
 
-.form-inputs{
+.form-inputs {
     width: 100%;
 }
-.input-box{
+
+.input-box {
     position: relative;
 }
-.inputs{
+
+.inputs {
     width: 100%;
     height: 55px;
     margin: 8px 0;
@@ -139,7 +146,8 @@ body {
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
-.input-field{
+
+.input-field {
     font-size: 16px;
     padding: 0 40px 0 20px;
     background: #1b2d6f3f;
@@ -147,7 +155,7 @@ body {
     backdrop-filter: blur(20px);
 }
 
-::placeholder{
+::placeholder {
     color: white;
     font-size: 16px;
 }
@@ -161,23 +169,28 @@ body {
     width: 17px;
     height: 17px;
 }
-.has-account, .remeber-me, .forgot-pass {
+
+.has-account,
+.remeber-me,
+.forgot-pass {
     display: flex;
     justify-content: right;
     gap: 5px;
 }
 
-.has-account a, .forgot-pass a{
+.has-account a,
+.forgot-pass a {
     color: green;
     text-decoration: none;
     font-size: 14px;
 }
 
-.has-account a:hover, .forgot-pass a:hover{
+.has-account a:hover,
+.forgot-pass a:hover {
     text-decoration: underline;
 }
 
-.submit-btn{
+.submit-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,8 +200,66 @@ body {
     transition: 0.3s;
 }
 
-.submit-btn:hover{
-    gap:15px;
+.submit-btn:hover {
+    gap: 15px;
+}
+
+.checker {
+    display: flex;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.checker input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 20px;
+    left: 12px;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.checker:hover input ~ .checkmark{
+    background-color: #ccc;
+}
+
+.checker input:checked ~ .checkmark{
+    background-color: #2dc722;
+}
+
+.checkmark:after{
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checker input:checked ~ .checkmark:after{
+    display: block;
+}
+
+.checker .checkmark:after{
+    top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
 }
 
 /* 
@@ -234,7 +305,9 @@ footer {
 
 footer p {
     font-size: 0.9em;
-} */
+}
+
+*/
 
 /* Links gerais */
 a {
