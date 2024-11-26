@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const apiBaseUrl = "http://localhost:9090/app";
+    const apiBaseUrl = "http://localhost:5501/app";
 
     const eventContainer = document.getElementById("event-cards-container");
     const campaignContainer = document.getElementById("campaign-cards-container");

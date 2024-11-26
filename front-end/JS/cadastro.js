@@ -47,6 +47,22 @@
      await fetch("/app/userSignIn",
     {body:JSON.stringify({user:nome, password:senha}),  method:"POST", headers:{"Content-Type":"application/json"}}).then(v => {return v.ok})
 
+
+    /* fetch("/app/userSignIn", {
+    method: 'POST',
+    headers: {
+        'Content-type': 'application/json'
+        },
+        body:JSON.stringify({
+            user: nome,
+            passaword: senha
+            })
+        }).then(res => {
+            return res.json()
+            })
+    não sei isso aqui ta certo mas a gente aceita que sim
+    */
+
     // var usuarioExistente = usuarios.find(function(usuario) {
     //     return usuario.email === email;
     // });

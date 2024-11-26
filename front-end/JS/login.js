@@ -7,17 +7,24 @@
     txtEmail.focus();
 
     function fazerLogin(email, senha) {
-        var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+        fetch("/app/Login")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error, status = ${response.status}`);
+          }
+          return response.json();
+        })
+        // var usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     
-        var usuario = usuarios.find(function(usuario) {
-            return usuario.email === email;
-        });
+        // var usuario = usuarios.find(function(usuario) {
+        //     return usuario.email === email;
+        // });
     
-        if (usuario && usuario.senha === senha) {
-            return { sucesso: true, mensagem: "Login bem-sucedido.", usuario: usuario};
-        } else {
-            exibirMensagemErro("Email ou senha incorretos");
-        }
+        // if (usuario && usuario.senha === senha) {
+        //     return { sucesso: true, mensagem: "Login bem-sucedido.", usuario: usuario};
+        // } else {
+        //     exibirMensagemErro("Email ou senha incorretos");
+        // }
     }
     
 
@@ -38,7 +45,7 @@
         }
         else {
             var resultado = fazerLogin(email, senha);
-            if (resultado.sucesso) {
+            if (resultado) {
                 window.location.href = "http://localhost:5501/front-end/html/perfil_ong.html";
             } else {
                 alert(resultado.mensagem);
