@@ -101,9 +101,9 @@ document.getElementById("formCadastro").onsubmit = function(e) {
     var resultado = criarConta(nome, email, telefone, senha);
 
     if (resultado.sucesso) {
-        alert(resultado.mensagem);
+        console.log("Login feito com sucesso");
     } else {
-        alert(resultado.mensagem);
+        console.error("MUITO BURRO MANÉ");
     }
 };
 }
