@@ -1,33 +1,52 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Função para buscar os dados do voluntário
-    async function carregarPerfil() {
-        try {
-            // Supomos que o id do voluntário é passado por URL ou existe em um cookie/session
-            const idVoluntario = 1; // Exemplo: ID do voluntário, aqui pode vir de um cookie ou outra forma.
+// {/* <tr>
+//     <td>Exemplo ONG 1</td>
+//     <td>Educação</td>
+//     <td>01/2024</td>
+// </tr> */}
 
-            // Requisição GET para o backend, buscando os dados do voluntário
-            const response = await fetch(`/api/voluntario/${idVoluntario}`);
-
-            // Verificar se a resposta foi bem-sucedida (status 200)
-            if (response.ok) {
-                const dadosVoluntario = await response.json();
-
-                // Preencher os dados no HTML
-                document.querySelector('h2').textContent = `Bem-vindo, ${dadosVoluntario.nome}`;
-                document.querySelector('p strong + text').textContent = dadosVoluntario.email;
-                document.querySelectorAll('p')[1].innerHTML = `<strong>Data de Nascimento:</strong> ${dadosVoluntario.data_nascimento}`;
-                document.querySelectorAll('p')[2].innerHTML = `<strong>Interesses:</strong> ${dadosVoluntario.interesses}`;
-            } else {
-                console.error('Erro ao carregar os dados do perfil');
-            }
-        } catch (error) {
-            console.error('Erro ao fazer a requisição:', error);
+async function fetchInformation(){
+    token = localStorage.getItem("userToken")
+    // await fetch("/api/GetUserInfo", )
+    const response = await fetch(`/app/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userToken: token }),
+    });
+    userInfo = await response.json()
+    document.getElementById("wellcome-message").innerText = userInfo.user //need to update backend
+    document.getElementById("email").innerText = userInfo.email //need to update backend
+    // document.getElementById("history")
+    const resp = await fetch(`/app/getEvents`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userToken: token }),
+    });
+    events = await resp.json()
+    // {"name":c["name"],
+    //   "id":c["id"],
+    //   "description":c["description"],
+    //   "date":c["date"],
+    //   "local":c["local"],
+    //   "isSubscribed":user["id"] in c["subscriptions"]
+    //   } // output
+    tabalapai = document.getElementById("history")
+    console.log(tabalapai)
+    console.log(events)
+    events.forEach(element => {
+        if (!element.isSubscribed){
+            return
         }
-        
-    }
-
-    
-
-    // Carregar o perfil assim que a página for carregada
-    carregarPerfil();
-});
+        r = tabalapai.insertRow()
+        r.insertcell(1)
+        tabalapai.innerHtml = tabalapai.innerHtml + `
+        <tr>
+            <td>${element.name}</td>
+            <td>${element.description}</td>
+            <td>${element.date}</td>
+            <td>${element.local}</td>
+        </tr>
+        `
+        console.log(tabalapai.innerHtml)
+        console.log("tabala pai")
+    });
+}

@@ -1,0 +1,23 @@
+version: "3.3"
+services:
+  api:
+    image: ghcr.io/ariel0972/website:teste
+    networks:
+      - net
+    ports:
+      - 8080:9090
+    command: python app/BEREBEL.py
+    volumes:
+      - ./db.json:/BEREBEL/db.json
+
+  watchtower:
+    image: containrrr/watchtower
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.docker/config.json:/config.json
+    command: --interval 30 --cleanup --include-restarting
+
+networks:
+  net:
+    driver: bridge

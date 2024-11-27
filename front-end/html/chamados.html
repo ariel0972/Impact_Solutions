@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Favicon Link -->
+    <link rel="icon" href="../faculdade/img/teste8.png" type="image/x-icon">
+    
+    <!-- Bootstrap and Custom Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="kanban.css">
+    <title>Gerenciador de Chamados - Kanban</title>
+    <style>
+        /* Custom Styles */
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            color: white;
+            width: 200px;
+            padding-top: 20px;
+            position: fixed;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 20px;
+        }
+
+        .sidebar a {
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar i {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar span {
+            font-size: 16px;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .board {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .column {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 10px;
+            width: 30%;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .column h4 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .card:hover {
+            background-color: #e6e6e6;
+        }
+
+        /* Custom Buttons */
+        .card button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card button:hover {
+            color: #007bff;
+            transform: scale(1.1);
+        }
+
+        .add-card-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-card-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .modal-content {
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="../faculdade/index.html">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="../faculdade/contato.html">
+            <i class="fas fa-users"></i>
+            <span>Quem Somos</span>
+        </a>
+        <a href="../faculdade/contato.html">
+            <i class="fas fa-envelope"></i>
+            <span>Contato</span>
+        </a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Atendimento de Chamados</a>
+                <span class="navbar-text ms-3" style="font-size: 1rem;">
+                    <strong>Empresa:</strong> Impact-Solutions - CNPJ: 12.345.678/0001-99
+                </span>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Gerenciador de Chamados de TI</h2>
+
+            <!-- Kanban Board -->
+            <div class="board">
+                <!-- Column: To Do -->
+                <div class="column" id="toDoColumn">
+                    <h4>Pendência</h4>
+                    <div class="card" id="card1">
+                        <h5>Solicitação de Manutenção em Equipamento de Rede</h5>
+                        <p>Falha no equipamento de rede precisa de análise urgente.</p>
+                        <p><strong>Solicitante:</strong> João Silva</p>
+                        <p><strong>Data de Solicitação:</strong> 13/11/2024</p>
+                        <button onclick="editCard('card1')"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteCard('card1')"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <button class="add-card-btn" data-bs-toggle="modal" data-bs-target="#addCardModal">Adicionar Chamado</button>
+                </div>
+
+                <!-- Column: In Progress -->
+                <div class="column" id="inProgressColumn">
+                    <h4>Em Progresso</h4>
+                    <div class="card" id="card3">
+                        <h5>Análise de Falha na Conexão de Internet</h5>
+                        <p>Investigando falhas intermitentes na internet.</p>
+                        <p><strong>Solicitante:</strong> Maria Oliveira</p>
+                        <p><strong>Data de Solicitação:</strong> 12/11/2024</p>
+                        <button onclick="editCard('card3')"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteCard('card3')"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <button class="add-card-btn" data-bs-toggle="modal" data-bs-target="#addCardModal">Adicionar Chamado</button>
+                </div>
+
+                <!-- Column: Done -->
+                <div class="column" id="doneColumn">
+                    <h4>Concluído</h4>
+                    <div class="card" id="card5">
+                        <h5>Atualização de Sistema de Monitoramento de Câmeras</h5>
+                        <p>O sistema de câmeras foi atualizado e está funcionando corretamente.</p>
+                        <p><strong>Solicitante:</strong> Carlos Pereira</p>
+                        <p><strong>Data de Solicitação:</strong> 10/11/2024</p>
+                        <button onclick="editCard('card5')"><i class="fas fa-edit"></i></button>
+                        <button onclick="deleteCard('card5')"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                    <button class="add-card-btn" data-bs-toggle="modal" data-bs-target="#addCardModal">Adicionar Chamado</button>
+                </div>
+            </div>
+
+            <!-- Modal for Adding Card -->
+            <div class="modal fade" id="addCardModal" tabindex="-1" aria-labelledby="addCardModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addCardModalLabel">Adicionar Chamado</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addCardForm">
+                                <div class="mb-3">
+                                    <label for="cardTitle" class="form-label">Título do Chamado</label>
+                                    <input type="text" class="form-control" id="cardTitle" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cardDescription" class="form-label">Descrição</label>
+                                    <textarea class="form-control" id="cardDescription" rows="3" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cardRequester" class="form-label">Solicitante</label>
+                                    <input type="text" class="form-control" id="cardRequester" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cardDate" class="form-label">Data de Solicitação</label>
+                                    <input type="date" class="form-control" id="cardDate" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onclick="addCard()">Adicionar Chamado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for Kanban Board -->
+    <script>
+        // Function to add a new card
+        function addCard() {
+            const title = document.getElementById('cardTitle').value;
+            const description = document.getElementById('cardDescription').value;
+            const requester = document.getElementById('cardRequester').value;
+            const date = document.getElementById('cardDate').value;
+
+            const card = document.createElement('div');
+            card.classList.add('card');
+            card.innerHTML = `
+                <h5>${title}</h5>
+                <p>${description}</p>
+                <p><strong>Solicitante:</strong> ${requester}</p>
+                <p><strong>Data de Solicitação:</strong> ${date}</p>
+                <button onclick="editCard(this)"><i class="fas fa-edit"></i></button>
+                <button onclick="deleteCard(this)"><i class="fas fa-trash-alt"></i></button>
+            `;
+
+            // Add the new card to the "To Do" column
+            document.getElementById('toDoColumn').appendChild(card);
+        }
+
+        // Function to edit a card
+        function editCard(card) {
+            const newTitle = prompt("Novo Título do Chamado", card.querySelector('h5').textContent);
+            const newDescription = prompt("Nova Descrição", card.querySelector('p').textContent);
+
+            card.querySelector('h5').textContent = newTitle;
+            card.querySelector('p').textContent = newDescription;
+        }
+
+        // Function to delete a card
+        function deleteCard(card) {
+            card.parentElement.removeChild(card);
+        }
+    </script>
+</body>
+</html>

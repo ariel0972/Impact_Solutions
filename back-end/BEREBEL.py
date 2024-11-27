@@ -2,6 +2,7 @@ import os
 import time
 from flask import Flask
 from flask import request, Response
+from flask import jsonify, json
 import json # OH TERRYDAVIS PLEASE FORGIVE ME
 app = Flask(__name__)
 
@@ -45,18 +46,29 @@ def GetUserById(user_id:str):
         return u
     return None
 
-@app.post('/app/userSignIn')
+
+# @app.post('/app/userSignIn')
+
+@app.post('/app/SignIn')
 def UserSignin():# this is so bad that if multiple requests to sigin the DB will just get fucked
     req = request.json
     req["user"]
     req["password"]
+
+    req["type"]
+
     x = open("db.json","r").read()
     x = json.loads(x)
     token = generateRandom(10)
     id_user = generateRandom(10)
-    x["users"].append({"id": id_user, "user":req["user"], "password":req["password"], "token":token, "userType":0})
+
+    for u in x["users"]:
+        if u["user"] == req["user"]:
+            return Response(status=401)
+    x["users"].append({"id": id_user, "user":req["user"], "password":req["password"], "token":token, "userType":req["type"]})
     open("db.json","w").write(json.dumps(x))
-    return {"token":token, "userType":0}
+    return {"token":token, "userType":req["type"]}
+
 
 @app.post('/app/Login')
 def Login():
@@ -75,6 +87,8 @@ def Login():
         x["users"][i]["token"] = token
         return {"token":token, "userType":x["users"][i]["userType"]}
 
+    return Response(status=401)
+
 
 @app.post('/app/CreateCampaigns')
 def create_campaigns():# I'm tired
@@ -84,14 +98,16 @@ def create_campaigns():# I'm tired
     req["description"]
     user = GetUserByToken(req["userToken"])
     if not user:
-        return
-    if user["userType"] != 1: #architect
-        return
+        return Response("not found", 401)
+    # if user["userType"] != 1: #architect
+    #     return Response("not architet", 401)
     x = open("db.json","r").read()
     x = json.loads(x)
-    x["campaigns"].append({"id": generateRandom(5),# why id is random? lie: non sequetial id is more secure. reality: function is already there, why not? i'm tire
+    campaign_id = generateRandom(5) # why id is random? lie: non sequetial id is more secure. reality: function is already there, why not? i'm tire
+    x["campaigns"].append({"id": campaign_id,
                            "userToken":req["userToken"], "name": req["name"], "description":req["description"], "subscriptions":[]})
     open("db.json","w").write(json.dumps(x))
+    return jsonify(campaign_id=campaign_id)
 
 def root_dir():  # pragma: no cover
     return os.path.abspath("/BEREBEL/front/")
@@ -105,13 +121,15 @@ def get_file(filename):  # pragma: no cover
         # - render_template
         # - send_file
         # This should not be so non-obvious
-        return open(src).read()
+        return open(src,"rb").read()
+
     except IOError as exc:
         return str(exc)
 
 
 @app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/front-end/<path:path>')
+
 def get_resource(path):  # pragma: no cover
     mimetypes = {
         ".css": "text/css",
@@ -120,12 +138,22 @@ def get_resource(path):  # pragma: no cover
         ".png": "image/png",
         ".svg": "image/svg+xml",
         ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
     }
     complete_path = os.path.join(root_dir(), path)
     ext = os.path.splitext(path)[1]
+    print(ext)
     mimetype = mimetypes.get(ext, "text/html")
+    print(mimetype)
     content = get_file(complete_path)
     return Response(content, mimetype=mimetype)
+
+@app.post('/app/DeleteEvent')
+def DeleteEvents():
+    req = request.json
+    campaign_id = req["CampaignId"]
+    user_token = req["userToken"]
+
 
 @app.post('/app/CreateEvents')
 def CreateEvents():
@@ -138,10 +166,7 @@ def CreateEvents():
     description = req["description"]
     user = GetUserByToken(req["userToken"])
     if not user:
-        return
-    if user["userType"] != 1: #architect
-        return
-    # open("campaign","+a").write({""})
+        return 
     x = open("db.json","r").read()
     x = json.loads(x)
     if not any(True for c in x["campaigns"] if c["id"] == campaign_id):
@@ -157,11 +182,15 @@ def CreateEvents():
                        "subscriptions": []})
     open("db.json","w").write(json.dumps(x))
 
+    return token
+
+
 @app.post('/app/SubscribeCampaign')
 def SubscribeCampaign():
     req = request.json
     userToken = req["userToken"]
-    campaing = req["campaignId"]
+    campaing = req["Id"]
+
     user = GetUserByToken(userToken)
     if not user:
         return
@@ -172,8 +201,11 @@ def SubscribeCampaign():
         if c["id"] != campaing:
             continue
         if user["id"] in db["campaigns"][i]["subscriptions"]:
-            return
+            db["campaigns"][i]["subscriptions"].remove(user["id"])
+            break
         db["campaigns"][i]["subscriptions"].append(user["id"])
+        break
+
     save_DB(db)
 
 @app.post('/app/UnSubscribeCampaign')
@@ -199,7 +231,7 @@ def UnSubscribeCampaign():
 def ApplyEvent():
     req = request.json
     userToken = req["userToken"]
-    campaing = req["EventId"]
+    campaing = req["Id"]
     user = GetUserByToken(userToken)
     if not user:
         return
@@ -210,8 +242,12 @@ def ApplyEvent():
         if c["id"] != campaing:
             continue
         if user["id"] in db["Events"][i]["subscriptions"]:
-            return
+            print("removed")
+            db["Events"][i]["subscriptions"].remove(user["id"])
+            break
         db["Events"][i]["subscriptions"].append(user["id"])
+        break
+
     save_DB(db)
 
 @app.post('/app/UnApplyEvent')
@@ -233,13 +269,22 @@ def UnApplyEvent():
         db["Events"][i]["subscriptions"].remove(user["id"])
     save_DB(db)
     
-@app.post("/getCampaings")
+
+
+@app.post('/app/GetUserInfo')
+def GetUserToken():
+    req = request.json
+    userToken = req["userToken"]
+    return GetUserByToken(userToken)
+
+@app.post("/app/getCampaings")
 def getCampaings():
     req = request.json
     userToken = req["userToken"]
     user = GetUserByToken(userToken)
     db = open_DB()
-    [{"name":c["name"],
+    print (db["campaigns"])
+    return [{"name":c["name"],
       "id":c["id"],
       "description":c["description"],
       "isSubscribed":user["id"] in c["subscriptions"]
@@ -247,7 +292,8 @@ def getCampaings():
         for c in db["campaigns"]]
 
 
-@app.post("/getCampaignUsers")
+
+@app.post("/app/getCampaignUsers")
 def getCampaingsUsers():
     req = request.json
     userToken = req["userToken"]
@@ -260,7 +306,7 @@ def getCampaingsUsers():
             continue
         return [ GetUserById(u) for u in c["subscriptions"]]
 
-@app.post("/getEventUsers")
+@app.post("/app/getEventUsers")
 def getEventUsers():
     req = request.json
     userToken = req["userToken"]
@@ -274,13 +320,14 @@ def getEventUsers():
         return [ GetUserById(u) for u in c["subscriptions"]]
 
 
-@app.post("/getEvents")
+
+@app.post("/app/getEvents")
 def getCampasssings():
     req = request.json
     userToken = req["userToken"]
     user = GetUserByToken(userToken)
     db = open_DB()
-    [{"name":c["name"],
+    return [{"name":c["name"],
       "id":c["id"],
       "description":c["description"],
       "date":c["date"],

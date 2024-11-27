@@ -1,130 +1,121 @@
-document.addEventListener('DOMContentLoaded', function() {
-    let userToken = ''; // A variável que irá armazenar o token do usuário
-    let userType = '';  // O tipo de usuário (voluntário, ONG, etc.)
+// document.addEventListener("DOMContentLoaded", () => {
+    // const apiBaseUrl = "http://localhost:5501/app";
 
-    // Função para login
-    function login(username, password) {
-        fetch('/api/Login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user: username, password: password })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.token) {
-                userToken = data.token;
-                userType = data.userType;
-                loadData();  // Carregar dados após login
-            } else {
-                alert('Login falhou!');
-            }
-        })
-        .catch(error => console.error('Erro ao fazer login:', error));
+// const apiBaseUrl = "http://localhost:8080/app";
+const apiBaseUrl = "/app";
+
+const eventContainer = document.getElementById("event-cards-container");
+const campaignContainer = document.getElementById("campaign-cards-container");
+const modal = document.getElementById("modal-form");
+const modalTitle = document.getElementById("modal-title");
+const itemName = document.getElementById("item-name");
+const itemDescription = document.getElementById("item-description");
+const saveButton = document.getElementById("modal-save-btn");
+const cancelButton = document.getElementById("modal-cancel-btn");
+
+let isEditingEvent = false;
+let editId = null;
+// localStorage.setItem("userToken", "xlmeefuexb")
+// Fetch e renderiza itens
+const fetchData = async (endpoint, container) => {
+    try {
+        const token = localStorage.getItem("userToken");
+        const response = await fetch(`${apiBaseUrl}/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userToken: token }),
+        });
+        const data = await response.json();
+        renderItems(data, container, endpoint === "getEvents");
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
+};
 
-    // Função para carregar campanhas e eventos
-    function loadData() {
-        // Carregar campanhas
-        fetch(`/api/getCampaings?userToken=${userToken}`)
-            .then(response => response.json())
-            .then(campaigns => {
-                const campaignContainer = document.getElementById('campaign-cards-container');
-                campaignContainer.innerHTML = ''; // Limpar contêiner antes de adicionar novas campanhas
+const renderItems = (items, container, isEvent) => {
+    container.innerHTML = "";
+    items.forEach((item) => {
+        const card = document.createElement("div");
+        card.classList.add("item");
+        card.innerHTML = `
+            <button class="criarevento">Criar Evento</button>
+            <h3>${item.name}</h3>
+            <p>${item.description}</p>
+            ${isEvent ? `<p><strong>Data:</strong> ${item.date}</p>` : ""}
+            <button onclick="subscribe('${item.id}', ${isEvent})">${
+            item.isSubscribed ? "Cancelar Inscrição" : "Inscrever-se"
+        }</button>`;
+        container.appendChild(card);
+    });
+};
 
-                campaigns.forEach(campaign => {
-                    const campaignCard = document.createElement('div');
-                    campaignCard.classList.add('item');
-                    campaignCard.innerHTML = `
-                        <h3>${campaign.name}</h3>
-                        <p>Descrição: ${campaign.description}</p>
-                        <button class="support-btn" data-id="${campaign.id}" ${campaign.isSubscribed ? 'disabled' : ''}>
-                            ${campaign.isSubscribed ? 'Você apoia essa causa!' : 'Eu apoio essa causa!'}
-                        </button>
-                        <button class="donate-btn" data-id="${campaign.id}">Doações</button>
-                    `;
-                    campaignContainer.appendChild(campaignCard);
-                });
+// Adapta o modal
+const openModal = (id = null, isEventModal = true) => {
+    modal.classList.remove("hidden");
+    modalTitle.textContent = id ? "Editar Item" : "Adicionar Item";
+    isEditingEvent = isEventModal;
+    editId = id;
 
-                // Adicionar interatividade para os botões de "Eu apoio essa causa!"
-                document.querySelectorAll('.support-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const campaignId = this.dataset.id;
-                        if (!this.disabled) {
-                            fetch(`/api/SubscribeCampaign?userToken=${userToken}&campaignId=${campaignId}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    alert('Você apoiou essa causa!');
-                                    loadData();  // Atualiza os dados após apoio
-                                })
-                                .catch(error => console.error('Erro ao apoiar campanha:', error));
-                        }
-                    });
-                });
-
-                // Adicionar interatividade para os botões de "Doações"
-                document.querySelectorAll('.donate-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const campaignId = this.dataset.id;
-                        const donationAmount = prompt("Digite o valor da doação:");
-                        if (donationAmount) {
-                            fetch(`/api/doarCampanha/${campaignId}`, {
-                                method: 'POST',
-                                body: JSON.stringify({ amount: donationAmount }),
-                                headers: { 'Content-Type': 'application/json' }
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                alert(`Você doou R$ ${donationAmount} para a causa!`);
-                            })
-                            .catch(error => console.error('Erro ao fazer a doação:', error));
-                        }
-                    });
-                });
-            })
-            .catch(error => console.error('Erro ao carregar as campanhas:', error));
-
-        // Carregar eventos
-        fetch(`/api/getEvents?userToken=${userToken}`)
-            .then(response => response.json())
-            .then(events => {
-                const eventContainer = document.getElementById('event-cards-container');
-                eventContainer.innerHTML = ''; // Limpar contêiner antes de adicionar novos eventos
-
-                events.forEach(event => {
-                    const eventCard = document.createElement('div');
-                    eventCard.classList.add('item');
-                    eventCard.innerHTML = `
-                        <h3>${event.name}</h3>
-                        <p>Data: ${event.date}</p>
-                        <p>Local: ${event.local}</p>
-                        <p>Descrição: ${event.description}</p>
-                        <button class="apply-btn" data-id="${event.id}" ${event.isApplied ? 'disabled' : ''}>
-                            ${event.isApplied ? 'Você está inscrito!' : 'Eu vou!'}
-                        </button>
-                    `;
-                    eventContainer.appendChild(eventCard);
-                });
-
-                // Adicionar interatividade para os botões de "Eu vou!"
-                document.querySelectorAll('.apply-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const eventId = this.dataset.id;
-                        if (!this.disabled) {
-                            fetch(`/api/ApplyEvent?userToken=${userToken}&EventId=${eventId}`)
-                                .then(response => response.json())
-                                .then(data => {
-                                    alert('Você se inscreveu para o evento!');
-                                    loadData();  // Atualiza os dados após inscrição
-                                })
-                                .catch(error => console.error('Erro ao se inscrever no evento:', error));
-                        }
-                    });
-                });
-            })
-            .catch(error => console.error('Erro ao carregar os eventos:', error));
+    if (id) {
+        const item = document.getElementById(id);
+        itemName.value = item.querySelector("h3").textContent;
+        itemDescription.value = item.querySelector("p").textContent;
+    } else {
+        itemName.value = "";
+        itemDescription.value = "";
     }
+};
 
-    // Exemplo de como realizar o login ao chamar a função login
-    login('usuario@example.com', 'senha123'); // Substituir pelos dados reais
+const closeModal = () => {
+    modal.classList.add("hidden");
+    itemName.value = "";
+    itemDescription.value = "";
+    editId = null;
+};
 
+saveButton.addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+        const token = localStorage.getItem("userToken");
+        const endpoint = isEditingEvent ? "CreateEvents" : "CreateCampaigns";
+        await fetch(`${apiBaseUrl}/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                userToken: token,
+                name: itemName.value,
+                description: itemDescription.value,
+            }),
+        });
+        closeModal();
+        fetchData(isEditingEvent ? "getEvents" : "getCampaings", isEditingEvent ? eventContainer : campaignContainer);
+    } catch (error) {
+        console.error("Error saving data:", error);
+    }
 });
+
+cancelButton.addEventListener("click", closeModal);
+
+// Fetch Eventos e Campanhas ao carregar a pag
+fetchData("getEvents", eventContainer);
+fetchData("getCampaings", campaignContainer);
+
+// Inscrição
+async function subscribe(id, isEvent) {
+    const endpoint = isEvent ? "ApplyEvent" : "SubscribeCampaign";
+    const token = localStorage.getItem("userToken");
+    try {
+        await fetch(`${apiBaseUrl}/${endpoint}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userToken: token, Id: id }),
+        });
+        location.reload();
+    } catch (error) {
+        console.error("Error subscribing:", error);
+    }
+
+}
+function logout() {
+    localStorage.setItem("userToken", "")
+}
