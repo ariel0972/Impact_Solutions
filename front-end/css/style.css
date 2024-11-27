@@ -1,6 +1,6 @@
 :root {
     --color1:  #7aba51;
-    --color2:  #48872a;
+    --color2:  #0084b5;
     --color3:  #8cbcd4;
     --color4:  #062206;
     --color5:  #84bb95;
@@ -146,10 +146,11 @@ section{
     border: 2px solid white;
     border-radius: 50px;
     padding: 12px 12px;
+    transition: .6s all ease;
 }
 .down i:hover{
-    background-color: gray;
-    color: wheat;
+    background-color: #008abc;
+    color: #ffffff;
     transition: all .60s ease;
 }
 header.sticky{
@@ -413,7 +414,7 @@ header.sticky{
     transform: scale(1.3);
 }
 .end-text{
-    background-color: #edfff1;
+    background-color: var(--color3);
     text-align: center;
     padding: 20px;
 }
@@ -470,7 +471,7 @@ header.sticky{
 /* MISSÃO, VISÃO E VALORES */
 
 .missao{
-    background-color: #f3f4f6;
+    background-color: #eee;
 }
 
 .missao__container{
@@ -510,7 +511,7 @@ h2.missao__titulo {
 }
 
 h3.missao-card__titulo {
-    color: #40614a;
+    color: #91d9d9;
     font-size: 28px;
     text-align: center;
     margin-bottom: 10px;
@@ -524,16 +525,31 @@ p.missao-card__texto {
 
 .missao-card__img>svg {
     width: 80px;
-    fill: #84bb95;
+    fill: #91d9d9;
 }
 
-/* -------------------------------------  */
 
 .missao-card__img {
     margin-bottom: 10px;
 }
 
 /* -------------------------------------  */
+
+
+/* APRESENTAÇÃO DO SISTEMA  */
+.video__container h2{
+    color: #111;
+    font-size: 38px;
+    text-transform: capitalize;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.video__container video{
+    background: red;
+    margin: 0 auto;
+    width: 100%;
+}
 
 
 /* EQUIPE  */
@@ -640,3 +656,26 @@ h2.equipe__titulo {
         min-height: 250px;
     }
 }
+
+
+  
+/* Estilo base para as divs que serão animadas */
+.animate {
+    opacity: 0;
+    transform: translateX(100px); 
+    transition: opacity 1s ease-out, transform 1s ease-out;
+  }
+  
+.animate-left {
+    transform: translateX(-100px); 
+}
+  
+.animate-right {
+    transform: translateX(100px);
+}
+
+.animate-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+  
