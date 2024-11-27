@@ -46,6 +46,7 @@ def GetUserById(user_id:str):
         return u
     return None
 
+
 # @app.post('/app/userSignIn')
 
 @app.post('/app/SignIn')
@@ -53,17 +54,21 @@ def UserSignin():# this is so bad that if multiple requests to sigin the DB will
     req = request.json
     req["user"]
     req["password"]
+
     req["type"]
+
     x = open("db.json","r").read()
     x = json.loads(x)
     token = generateRandom(10)
     id_user = generateRandom(10)
+
     for u in x["users"]:
         if u["user"] == req["user"]:
             return Response(status=401)
     x["users"].append({"id": id_user, "user":req["user"], "password":req["password"], "token":token, "userType":req["type"]})
     open("db.json","w").write(json.dumps(x))
     return {"token":token, "userType":req["type"]}
+
 
 @app.post('/app/Login')
 def Login():
@@ -81,7 +86,9 @@ def Login():
         token = generateRandom(10)
         x["users"][i]["token"] = token
         return {"token":token, "userType":x["users"][i]["userType"]}
+
     return Response(status=401)
+
 
 @app.post('/app/CreateCampaigns')
 def create_campaigns():# I'm tired
@@ -115,12 +122,14 @@ def get_file(filename):  # pragma: no cover
         # - send_file
         # This should not be so non-obvious
         return open(src,"rb").read()
+
     except IOError as exc:
         return str(exc)
 
 
 @app.route('/', defaults={'path': ''})
 @app.route('/front-end/<path:path>')
+
 def get_resource(path):  # pragma: no cover
     mimetypes = {
         ".css": "text/css",
@@ -172,13 +181,16 @@ def CreateEvents():
                        "description": req["description"],
                        "subscriptions": []})
     open("db.json","w").write(json.dumps(x))
+
     return token
+
 
 @app.post('/app/SubscribeCampaign')
 def SubscribeCampaign():
     req = request.json
     userToken = req["userToken"]
     campaing = req["Id"]
+
     user = GetUserByToken(userToken)
     if not user:
         return
@@ -193,6 +205,7 @@ def SubscribeCampaign():
             break
         db["campaigns"][i]["subscriptions"].append(user["id"])
         break
+
     save_DB(db)
 
 @app.post('/app/UnSubscribeCampaign')
@@ -234,6 +247,7 @@ def ApplyEvent():
             break
         db["Events"][i]["subscriptions"].append(user["id"])
         break
+
     save_DB(db)
 
 @app.post('/app/UnApplyEvent')
@@ -256,6 +270,7 @@ def UnApplyEvent():
     save_DB(db)
     
 
+
 @app.post('/app/GetUserInfo')
 def GetUserToken():
     req = request.json
@@ -275,6 +290,7 @@ def getCampaings():
       "isSubscribed":user["id"] in c["subscriptions"]
       }
         for c in db["campaigns"]]
+
 
 
 @app.post("/app/getCampaignUsers")
@@ -302,6 +318,7 @@ def getEventUsers():
         if c["id"] != Campaign:
             continue
         return [ GetUserById(u) for u in c["subscriptions"]]
+
 
 
 @app.post("/app/getEvents")
