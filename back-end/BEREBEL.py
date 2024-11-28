@@ -127,9 +127,8 @@ def get_file(filename):  # pragma: no cover
         return str(exc)
 
 
-@app.route('/', defaults={'path': ''})
+@app.route('/', defaults={'path': 'html/index.html'})
 @app.route('/front-end/<path:path>')
-
 def get_resource(path):  # pragma: no cover
     mimetypes = {
         ".css": "text/css",
