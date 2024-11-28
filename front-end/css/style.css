@@ -116,6 +116,20 @@ section{
     margin-bottom: 20px;
 }
 
+@media only screen and (max-width: 1200px){
+    .main-text p{
+        max-width: 400px;
+    }
+    
+}
+
+@media only screen and (max-width: 800px){
+    .main-text p{
+        max-width: 350px;
+    }
+    
+}
+
 .main-btn{
     display: inline-block;
     color: white;
@@ -328,7 +342,7 @@ header.sticky{
 }
 
 .contact{
-    background-color: #f3f4f6;
+    background-color: #fff;
     padding: 40px 8%;
 }
 .contact-info{
@@ -437,6 +451,7 @@ header.sticky{
     .main-text p{
         font-size: 18px;
         transition: .4s;
+        max-width: 200px;
     }
     .main-btn{
         padding: 10px 20px;
@@ -554,6 +569,10 @@ p.missao-card__texto {
 
 /* EQUIPE  */
 
+.equipe{
+    background-color: #eee;
+}
+
 .equipe__container{
     max-width: 81rem;
     margin: 0 auto;
@@ -588,7 +607,7 @@ h2.equipe__titulo {
 
 /* sobre nós  */
 .sobre{
-    background-color: #eee;
+    background-color: #fff;
 }
 
 .sobre__titulo{

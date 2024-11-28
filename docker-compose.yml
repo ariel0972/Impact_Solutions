@@ -16,4 +16,4 @@ services:
       - ./front-end/:/BEREBEL/front/
 networks:
   net:
-    driver: bridge
+    driver: bridge 
